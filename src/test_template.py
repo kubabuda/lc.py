@@ -1,5 +1,8 @@
 from typing import *
 
+class Solution:
+    def method(self):
+        pass
 
 from unittest import TestCase
 import unittest
@@ -7,6 +10,7 @@ import unittest
 class TestTemplate(unittest.TestCase): 
     def test(self):
         # arrange
+        s = Solution()
         # act
         result = 2
         # assert
@@ -14,11 +18,12 @@ class TestTemplate(unittest.TestCase):
     
     def testCases(self):
         param_list = [
-            (2, 2)
+            (2, 2),
         ]
         for target, expected in param_list:
             with self.subTest():
                 # arrange
+                s = Solution()
                 # act
                 result = target
                 # assert
