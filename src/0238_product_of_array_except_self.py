@@ -20,14 +20,7 @@ class Solution:
 from unittest import TestCase
 import unittest
 
-class TestTemplate(unittest.TestCase): 
-    def test(self):
-        # arrange
-        s = Solution()
-        # act
-        result = 2
-        # assert
-        self.assertEqual(2, result)
+class Test(unittest.TestCase): 
     
     def testCases(self):
         param_list = [
