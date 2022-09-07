@@ -1,8 +1,8 @@
 from typing import *
 
 class Solution:
-    def method(self):
-        pass
+    def method(self, nums):
+        return []
 
 from unittest import TestCase
 import unittest
@@ -18,14 +18,14 @@ class TestTemplate(unittest.TestCase):
     
     def testCases(self):
         param_list = [
-            (2, 2),
+            ([], []),
         ]
-        for target, expected in param_list:
+        for nums, expected in param_list:
             with self.subTest():
                 # arrange
                 s = Solution()
                 # act
-                result = target
+                result = s.method(nums)
                 # assert
                 self.assertEqual(expected, result)
 
