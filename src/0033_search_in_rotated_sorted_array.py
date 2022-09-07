@@ -1,7 +1,29 @@
 from typing import *
-# https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+# https://leetcode.com/problems/search-in-rotated-sorted-array
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
+        # single pass approach
+        begin = 0
+        end = len(nums) - 1
+        while begin <= end:
+            if nums[end] == target:
+                return end
+            if nums[begin] == target:
+                return begin
+            mid = int((begin + end) / 2)
+            if nums[mid] == target:
+                return mid
+            if ((nums[begin] < target < nums[mid] < nums[end]) 
+            or (nums[mid] < nums[end] < nums[begin] < target)
+            or (target < nums[mid] < nums[end] < nums[begin])
+            or (nums[end] < nums[begin] < target < nums[mid])): # target in left half
+                end = mid - 1
+            else:
+                begin = mid + 1
+        return -1        
+
+    def search2pass(self, nums: List[int], target: int) -> int:
+        # two pass approach
         # find pivot point
         begin = 0
         end = len(nums) - 1
