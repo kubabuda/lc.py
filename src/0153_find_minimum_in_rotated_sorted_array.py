@@ -7,6 +7,8 @@ class Solution:
 
         while begin < end:
             mid = int((begin + end) / 2)
+            if end - begin >= 2 and nums[mid] < nums[mid + 1] < nums[mid - 1]:
+                return nums[mid]
             if nums[mid] > nums[end]: # target on right half
                 begin = mid + 1
             else: # target on left half
@@ -24,6 +26,9 @@ class Test(unittest.TestCase):
             ([3,4,5,1,2], 1),
             ([4,5,6,7,0,1,2], 0),
             ([11,13,15,17], 11),
+            ([5,1,2], 1),
+            ([5,1], 1),
+            ([1,5], 1),
         ]
         for nums, expected in param_list:
             with self.subTest():
