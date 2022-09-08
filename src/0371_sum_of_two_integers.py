@@ -1,7 +1,12 @@
 from typing import *
 # https://leetcode.com/problems/sum-of-two-integers/
+import math
 class Solution:
     def getSum(self, a: int, b: int) -> int:
+        n = (2 ** a) * (2 ** b)
+        return int(math.log(n, 2))
+
+    def getSumPositiveOnly(self, a: int, b: int) -> int:
         result = 0
         carry = 0
         n_bit = 0
