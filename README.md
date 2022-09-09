@@ -24,8 +24,8 @@ Array
 
 Binary
 
-- Sum of Two Integers - https://leetcode.com/problems/sum-of-two-integers/
-- Number of 1 Bits - https://leetcode.com/problems/number-of-1-bits/
+- ❗ Sum of Two Integers - https://leetcode.com/problems/sum-of-two-integers/
+- ✔️ Number of 1 Bits - https://leetcode.com/problems/number-of-1-bits/
 - Counting Bits - https://leetcode.com/problems/counting-bits/
 - Missing Number - https://leetcode.com/problems/missing-number/
 - Reverse Bits - https://leetcode.com/problems/reverse-bits/
@@ -172,6 +172,9 @@ https://leetcode.com/problems/basic-calculator/
 # System design
 
 https://www.karanpratapsingh.com/courses/system-design
+http://highscalability.com/blog/category/example
+https://geni.us/ddi-choice
+https://blog.pragmaticengineer.com/system-design-interview-an-insiders-guide-review/
 https://www.youtube.com/watch?v=5TRFpFBccQM
 https://www.youtube.com/watch?v=UF9Iqmg94tk
 https://www.youtube.com/watch?v=M4lR_Va97cQ
