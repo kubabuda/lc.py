@@ -2,39 +2,45 @@ from typing import *
 # https://leetcode.com/problems/sum-of-two-integers/
 import math
 class Solution:
-    def getSum(self, a: int, b: int) -> int:
-        n = (2 ** a) * (2 ** b)
-        return int(math.log(n, 2))
+    # def getSum(self, a: int, b: int) -> int:
+    #     n = (2 ** a) * (2 ** b)
+    #     return int(math.log(n, 2))
 
-    def getSumPositiveOnly(self, a: int, b: int) -> int:
+    def getSum(self, a: int, b: int) -> int:
+        result = self.addUnsigned(a, b)
+        if result > 2000: # 1000 is max input
+            result_flipped_sign = 0
+            for i in range(0, 32):
+                mask = 1 << i
+                bit = result & mask
+                if not bit:
+                    result_flipped_sign |= mask
+            result = self.addUnsigned(result_flipped_sign, 1)
+            result *= -1
+        return result
+    
+    def addUnsigned(self, a: int, b: int) -> int:
         result = 0
         carry = 0
-        n_bit = 0
-        bit_a = 0
-        bit_b = 0
-        BITS = 32
-        for i in range(0, BITS):
-            bit_a = a & 1
-            bit_b = b & 1
-            a >>= 1
-            b >>= 1
-            if carry and bit_a and bit_b:
-                n_bit = 1
-            elif (bit_a and bit_b) or (bit_a and carry) or (bit_b and carry):
+        for i in range(0, 32):
+            mask = 1 << i
+            if a & mask: carry += 1
+            if b & mask: carry += 1
+            if carry == 3:
+                bit = 1
                 carry = 1
-                n_bit = 0
-            elif bit_a or bit_b or carry:
-                n_bit = 1
+            elif carry == 2:
+                carry = 1
+                bit = 0
+            elif carry == 1:
+                bit = 1
                 carry = 0
             else:
-                n_bit = 0
+                bit = 0
                 carry = 0
-            n_bit <<= BITS
-            result |= n_bit
-            result >>= 1
-
+            mask = bit << i
+            result |= mask
         return result
-        
 
 from unittest import TestCase
 import unittest
@@ -46,6 +52,11 @@ class TestTemplate(unittest.TestCase):
             (1,1, 2),
             (2,3, 5),
             (0,1, 1),
+            (0,-1, -1),
+            (2,-3, -1),
+            (-2,-3, -5),
+            (-2,-2, -4),
+            (-1,-1, -2),
         ]
         for a, b, expected in param_list:
             with self.subTest():
