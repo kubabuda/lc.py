@@ -1,6 +1,5 @@
 from typing import *
-# https://leetcode.com/problems/number-of-1-bits
-import math
+# https://leetcode.com/problems/reverse-bits
 class Solution:
     def reverseBits(self, n: int) -> int:
         result = 0

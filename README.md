@@ -1,4 +1,12 @@
-# Blind 75
+# Leetcode - Blind 75 ex
+
+## How to run
+
+```
+python src/0133_clone_graph.py
+```
+
+## Blind 75
 
 New Year Gift to every fellow time-constrained engineer out there looking for a job,
 here's a list of the best LeetCode questions that teach you core concepts and techniques for each category/type of problems! 
@@ -50,7 +58,7 @@ Dynamic Programming
 
 Graph
 
-- Clone Graph - https://leetcode.com/problems/clone-graph/
+- ✔️ Clone Graph - https://leetcode.com/problems/clone-graph/
 - Course Schedule - https://leetcode.com/problems/course-schedule/
 - Pacific Atlantic Water Flow - https://leetcode.com/problems/pacific-atlantic-water-flow/
 - Number of Islands - https://leetcode.com/problems/number-of-islands/
