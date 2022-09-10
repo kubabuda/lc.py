@@ -9,9 +9,25 @@ class Node:
 
 class Solution:
     def cloneGraph(self, node: 'Node') -> 'Node':
-        return self.clone(node)
-    
-    def clone(self, node: 'Node', all_nodes = None) -> 'Node':
+        '''iteration DFS with hashset and stack'''
+        if not node: return node
+        cl_nodes = {}
+        to_clone = [node]
+        while to_clone:
+            curr = to_clone.pop()
+            if curr.val not in cl_nodes: 
+                cl_nodes[curr.val] = Node(curr.val)
+            curr_clone = cl_nodes[curr.val]
+            for ne in curr.neighbors:
+                if ne.val not in cl_nodes:
+                    cl_nodes[ne.val] = Node(ne.val)
+                    to_clone.append(ne)
+                curr_clone.neighbors.append(cl_nodes[ne.val])
+        return cl_nodes[node.val]
+
+    # def cloneGraph(self, node: 'Node') -> 'Node':
+        # return self.cloneRecursive(node)
+    def cloneRecursive(self, node: 'Node', all_nodes = None) -> 'Node':
         if not node: return node
         all_nodes = all_nodes or {}
         if node.val not in all_nodes:
@@ -19,7 +35,7 @@ class Solution:
         cloned_node = all_nodes[node.val]
         for ne in node.neighbors:
             if ne.val not in all_nodes:
-                cloned_ne = self.clone(ne, all_nodes)
+                cloned_ne = self.cloneRecursive(ne, all_nodes)
             else:
                 cloned_ne = all_nodes[ne.val]
             cloned_node.neighbors.append(cloned_ne)
