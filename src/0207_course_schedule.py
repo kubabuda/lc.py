@@ -22,6 +22,7 @@ class Solution:
                         return False
                     if pre not in visited:
                         to_visit.append(pre)
+                nodes[course] = []
         return True
 
     def canFinishRec(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
