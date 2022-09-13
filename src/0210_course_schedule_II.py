@@ -29,7 +29,36 @@ class Solution:
                     return []
         
         return solutionList
-        
+
+    def findOrderIterative(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        coursePre = { i:[] for i in range(numCourses) }
+        for c, pre in prerequisites:
+            coursePre[c].append(pre)
+        solutionSet = set()
+        solutionList = []
+        toVisit = deque()
+
+        for course in coursePre:
+            visited = set()
+            if course not in solutionSet:
+                toVisit.append(course)
+
+                while toVisit:
+                    curr = toVisit.pop()
+                    if curr in visited and curr not in solutionSet:
+                        return []
+                    visited.add(curr)
+                    pres = [pre for pre in coursePre[curr] if pre not in solutionSet]
+                    if pres and any(pres):
+                        toVisit.append(curr)
+                        for pre in pres:
+                            toVisit.append(pre)
+                    else:
+                        solutionList.append(curr)
+                        solutionSet.add(curr)
+                        coursePre[curr] = []
+
+        return solutionList
         
 from unittest import TestCase
 import unittest
@@ -38,8 +67,11 @@ class TestTemplate(unittest.TestCase):
     def testCases(self):
         param_list = [
             (2, [], [[0,1],[1,0]]),
+            (2, [[0,1],[1,0]], [[]]),
             (2, [[1,0]], [[0,1]]),
-            (4, [[1,0],[2,0],[3,1],[3,2]], [[0,2,1,3],[0, 1, 2, 3]])
+            (2, [[0,1]], [[1,0]]),
+            (4, [[1,0],[2,0],[3,1],[3,2]], [[0,2,1,3],[0, 1, 2, 3]]),
+            (3, [[0,1],[1,2],[2,0]], [[]]),
         ]
         for numCourses, nodes, expected in param_list:
             with self.subTest():
@@ -48,7 +80,25 @@ class TestTemplate(unittest.TestCase):
                 # act
                 result = s.findOrder(numCourses, nodes)
                 # assert
-                self.assertTrue(result in expected, (numCourses, nodes))
+                self.assertTrue(result in expected, (f'{numCourses} {nodes} returned {result} expected {expected}' ))
+
+    def testCasesIter(self):
+        param_list = [
+            (2, [], [[0,1],[1,0]]),
+            (2, [[0,1],[1,0]], [[]]),
+            (2, [[1,0]], [[0,1]]),
+            (2, [[0,1]], [[1,0]]),
+            (4, [[1,0],[2,0],[3,1],[3,2]], [[0,2,1,3],[0, 1, 2, 3]]),
+            (3, [[0,1],[1,2],[2,0]], [[]]),
+        ]
+        for numCourses, nodes, expected in param_list:
+            with self.subTest():
+                # arrange
+                s = Solution()
+                # act
+                result = s.findOrderIterative(numCourses, nodes)
+                # assert
+                self.assertTrue(result in expected, (f'{numCourses} {nodes} returned {result} expected {expected}' ))
 
 if __name__ == '__main__':
     unittest.main()
