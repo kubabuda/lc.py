@@ -6,6 +6,7 @@ class Solution:
 
         def dfs(x: int, y:int, solution, endfunc):
             xy = (x,y)
+            if xy in solution: return True
             if xy in visted and xy not in solution: return False
             visted.add(xy)
             if endfunc(x,y):
