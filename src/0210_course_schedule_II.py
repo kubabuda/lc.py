@@ -44,16 +44,20 @@ class Solution:
                 toVisit.append(course)
 
                 while toVisit:
-                    curr = toVisit.pop()
-                    if curr in visited and curr not in solutionSet:
+                    curr = toVisit[-1]
+                    if curr in visited and curr not in solutionList and curr != course:
                         return []
                     visited.add(curr)
+
                     pres = [pre for pre in coursePre[curr] if pre not in solutionSet]
-                    if pres and any(pres):
-                        toVisit.append(curr)
+                    if pres:
                         for pre in pres:
-                            toVisit.append(pre)
+                            if pre in visited and pre not in solutionList:
+                                return []
+                            else:
+                                toVisit.append(pre)
                     else:
+                        toVisit.pop()
                         solutionList.append(curr)
                         solutionSet.add(curr)
                         coursePre[curr] = []
@@ -63,17 +67,20 @@ class Solution:
 from unittest import TestCase
 import unittest
 class TestTemplate(unittest.TestCase): 
+    
+    param_list = [
+        (2, [], [[0,1],[1,0]]),
+        (2, [[0,1],[1,0]], [[]]),
+        (2, [[1,0]], [[0,1]]),
+        (2, [[0,1]], [[1,0]]),
+        (4, [[1,0],[2,0],[3,1],[3,2]], [[0,2,1,3],[0, 1, 2, 3]]),
+        (3, [[0,1],[1,2],[2,0]], [[]]),
+        (6, [[0,1],[0,2],[1,3],[3,2],[4,0],[5,0]], [[2,3,1,0,4,5],[2,3,1,0,4,5]]),
+        (7, [[1,0],[0,3],[0,2],[3,2],[2,5],[4,5],[5,6],[2,4]], [[6,5,4,2,3,0,1]]),
+    ]
 
     def testCases(self):
-        param_list = [
-            (2, [], [[0,1],[1,0]]),
-            (2, [[0,1],[1,0]], [[]]),
-            (2, [[1,0]], [[0,1]]),
-            (2, [[0,1]], [[1,0]]),
-            (4, [[1,0],[2,0],[3,1],[3,2]], [[0,2,1,3],[0, 1, 2, 3]]),
-            (3, [[0,1],[1,2],[2,0]], [[]]),
-        ]
-        for numCourses, nodes, expected in param_list:
+        for numCourses, nodes, expected in self.param_list:
             with self.subTest():
                 # arrange
                 s = Solution()
@@ -83,15 +90,7 @@ class TestTemplate(unittest.TestCase):
                 self.assertTrue(result in expected, (f'{numCourses} {nodes} returned {result} expected {expected}' ))
 
     def testCasesIter(self):
-        param_list = [
-            (2, [], [[0,1],[1,0]]),
-            (2, [[0,1],[1,0]], [[]]),
-            (2, [[1,0]], [[0,1]]),
-            (2, [[0,1]], [[1,0]]),
-            (4, [[1,0],[2,0],[3,1],[3,2]], [[0,2,1,3],[0, 1, 2, 3]]),
-            (3, [[0,1],[1,2],[2,0]], [[]]),
-        ]
-        for numCourses, nodes, expected in param_list:
+        for numCourses, nodes, expected in self.param_list:
             with self.subTest():
                 # arrange
                 s = Solution()
