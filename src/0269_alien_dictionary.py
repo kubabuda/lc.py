@@ -9,7 +9,7 @@ class Solution:
         # build prerequisites dictionary
         preceeding = { c: set() for c in letters }
 
-        def bfs_populate_preceeding(words, prefix)->bool:
+        def dfs_populate_preceeding(words, prefix)->bool:
             if not words: return
             prefix_len = len(prefix)
             c_words = {}
@@ -33,10 +33,10 @@ class Solution:
                 ch_words = c_words[c]
                 if words:
                     c_prefix = f'{prefix}{c}'
-                    if not bfs_populate_preceeding(ch_words, c_prefix): return False
+                    if not dfs_populate_preceeding(ch_words, c_prefix): return False
             return True
             
-        if not bfs_populate_preceeding(words, ''): return ''
+        if not dfs_populate_preceeding(words, ''): return ''
         
         result = []
         resultSet = set()
