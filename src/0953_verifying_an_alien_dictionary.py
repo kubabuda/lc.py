@@ -35,8 +35,29 @@ class Solution:
             return True
 
         return is_sorted_dfs(0, len(words) - 1, 0)
-        
-        
+
+
+    def isAlienSorted2(self, words: List[str], order: str) -> bool:
+        c_order = { c:i for i,c in enumerate(order) } # a:0, b:1
+
+        if not words or len(words) == 1: return True
+        prev = words[0]
+        i = 1
+        while i < len(words):
+            curr = words[i]
+            sharedLen = min(len(curr), len(prev))
+            for ii in range(0, sharedLen):
+                if curr[ii] != prev[ii]:
+                    if c_order[curr[ii]] < c_order[prev[ii]]:
+                        return False
+                    else:
+                        break
+            if len(prev) > len(curr) and prev.startswith(curr): return False
+            prev = curr        
+            i += 1
+
+        return True
+
 from unittest import TestCase
 import unittest
 class TestTemplate(unittest.TestCase): 
@@ -46,6 +67,7 @@ class TestTemplate(unittest.TestCase):
         (["word","world","row"], "worldabcefghijkmnpqstuvxyz", False),
         (["apple","app"], "abcdefghijklmnopqrstuvwxyz", False),
         (["hello","hello"], "abcdefghijklmnopqrstuvwxyz", True),
+        (["kuvp","q"], "ngxlkthsjuoqcpavbfdermiywz", True)
     ]
 
     def testCases(self):
@@ -55,6 +77,16 @@ class TestTemplate(unittest.TestCase):
                 s = Solution()
                 # act
                 result = s.isAlienSorted(words, order)
+                # assert
+                self.assertEqual(expected, result, (words))
+    
+    def testCases2(self):
+        for words, order, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                s = Solution()
+                # act
+                result = s.isAlienSorted2(words, order)
                 # assert
                 self.assertEqual(expected, result, (words))
 
