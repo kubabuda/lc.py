@@ -58,6 +58,24 @@ class Solution:
 
         return True
 
+    def isAlienSorted3(self, words: List[str], order: str) -> bool:
+        if not words or len(words) == 1: return True
+        c_order = { c:i for i,c in enumerate(order) } # a:0, b:1
+
+        for i in range(len(words) - 1):
+            prev, last = words[i], words[i + 1]
+            
+            for i, c_prev, in enumerate(prev):
+                if i >= len(last): 
+                    return False # 'foo','fo' case
+                c_next = last[i]
+                if c_next != c_prev:
+                    if c_order[c_prev] > c_order[c_next]:
+                        return False # 'foo', 'fox'
+                    break
+
+        return True
+
 from unittest import TestCase
 import unittest
 class TestTemplate(unittest.TestCase): 
@@ -87,6 +105,16 @@ class TestTemplate(unittest.TestCase):
                 s = Solution()
                 # act
                 result = s.isAlienSorted2(words, order)
+                # assert
+                self.assertEqual(expected, result, (words))
+
+    def testCases3(self):
+        for words, order, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                s = Solution()
+                # act
+                result = s.isAlienSorted3(words, order)
                 # assert
                 self.assertEqual(expected, result, (words))
 
