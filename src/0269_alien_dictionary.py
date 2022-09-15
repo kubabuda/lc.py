@@ -22,9 +22,9 @@ class Solution:
                     c = c_word[prefix_len]
                     if c not in c_words:
                         c_words[c] = []
-                        for i in c_words:
-                            if i != c:
-                                preceeding[c].add(i)
+                    for i in c_words:
+                        if i != c:
+                            preceeding[c].add(i)
                     if len(c_word) > prefix_len:
                         c_words[c].append(c_word)
                 prev_word = c_word
@@ -39,18 +39,22 @@ class Solution:
         if not dfs_populate_preceeding(words, ''): return ''
         
         result = []
-        resultSet = set()
+        visited = {}
 
-        def dfs_topo_sort(c):
-            if c in resultSet: 
-                return
+        def dfs_topo_sort(c)-> bool:
+            if c in visited: 
+                return visited[c]
+            visited[c] = False
             for cc in preceeding[c]:
-                dfs_topo_sort(cc)
+                if not dfs_topo_sort(cc): return False
+            
             result.append(c)
-            resultSet.add(c)
+            visited[c] = True
+
+            return True
 
         for c in letters:
-            dfs_topo_sort(c)
+            if not dfs_topo_sort(c): return ''
 
         return "".join(result)
 
@@ -61,7 +65,8 @@ class TestTemplate(unittest.TestCase):
     
     param_list = [
         (['wrt','wrf','er','ett','rftt'], 'wertf'),
-        (['wrt','wrf','er','ett','rftt','rft'], ''),
+        (['wrt','wrf','er','ett','rftt','rft'], ''), # wrong input sorting
+        (['wrt','wrf','er','ett','er','rftt'], ''), # cycles in input graph
     ]
 
     def testCases(self):
@@ -72,7 +77,7 @@ class TestTemplate(unittest.TestCase):
                 # act
                 result = s.alienOrder(words)
                 # assert
-                self.assertEqual(expected, result)
+                self.assertEqual(expected, result, (words))
 
 if __name__ == '__main__':
     unittest.main()
