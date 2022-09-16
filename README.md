@@ -1,6 +1,12 @@
-# Leetcode - Blind 75 ex
+# Leetcode - Blind 75
+
+## How it is going
+
+![Leetcode Stats](https://leetcard.jacoblin.cool/bdgr)
 
 ## How to run
+
+Use python3
 
 ```
 python src/0133_clone_graph.py

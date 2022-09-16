@@ -1,4 +1,5 @@
 from typing import *
+# https://leetcode.com/problems/
 
 class Solution:
     def method(self, nums):
@@ -8,6 +9,7 @@ from unittest import TestCase
 import unittest
 
 class TestTemplate(unittest.TestCase): 
+    
     def test(self):
         # arrange
         s = Solution()
@@ -16,11 +18,12 @@ class TestTemplate(unittest.TestCase):
         # assert
         self.assertEqual(2, result)
     
+    param_list = [
+        ([], []),
+    ]
+
     def testCases(self):
-        param_list = [
-            ([], []),
-        ]
-        for nums, expected in param_list:
+        for nums, expected in self.param_list:
             with self.subTest():
                 # arrange
                 s = Solution()
