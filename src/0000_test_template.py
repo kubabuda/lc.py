@@ -30,7 +30,7 @@ class TestTemplate(unittest.TestCase):
                 # act
                 result = s.method(nums)
                 # assert
-                self.assertEqual(expected, result)
+                self.assertEqual(expected, result, (nums))
 
 if __name__ == '__main__':
     unittest.main()

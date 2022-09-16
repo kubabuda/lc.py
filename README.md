@@ -70,7 +70,7 @@ Graph
 - ✔️ Number of Islands - https://leetcode.com/problems/number-of-islands/
 - ✔️ Longest Consecutive Sequence - https://leetcode.com/problems/longest-consecutive-sequence/
 - ✔️ Alien Dictionary (Leetcode Premium) - https://leetcode.com/problems/alien-dictionary/
-- Graph Valid Tree (Leetcode Premium) - https://leetcode.com/problems/graph-valid-tree/
+- ✔️ Graph Valid Tree (Leetcode Premium) - https://leetcode.com/problems/graph-valid-tree/ https://www.lintcode.com/problem/178
 - Number of Connected Components in an Undirected Graph (Leetcode Premium) - https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
 
 ---
