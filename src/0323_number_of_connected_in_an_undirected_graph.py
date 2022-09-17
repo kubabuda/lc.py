@@ -1,5 +1,5 @@
 from typing import *
-# https://leetcode.com/problems/
+# https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph
 
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
