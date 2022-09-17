@@ -26,6 +26,36 @@ class Solution:
                 dfs(i)
         return result
 
+    def findCircleNum_unionFind(self, isConnected: List[List[int]]) -> int:
+        n = len(isConnected)
+        pre = [i for i in range(n)]
+        rank = [1 for i in range(n)]
+
+        def find(n):
+            p = n
+            while p != pre[p]:
+                pre[p] = pre[pre[p]]
+                p = pre[p]
+            return p
+        
+        def union(n1, n2):
+            p1, p2 = find(n1), find(n2)
+            if p1 == p2: return 0
+            
+            if rank[p1] > rank[p2]:
+                pre[p2] = p1
+                rank[p1] += rank[p2]
+            else:
+                pre[p1] = p2
+                rank[p2] = p1
+            return 1
+
+        result = n
+        for i in range(n):
+            for j in range(0, i):
+                if isConnected[j][i] and i != j:
+                    result -= union(i, j)
+        return result
 
 from unittest import TestCase
 import unittest
@@ -68,6 +98,16 @@ class TestTemplate(unittest.TestCase):
                 s = Solution()
                 # act
                 result = s.findCircleNum(isConnected)
+                # assert
+                self.assertEqual(expected, result, (isConnected))
+
+    def testCases_unionFind(self):
+        for isConnected, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                s = Solution()
+                # act
+                result = s.findCircleNum_unionFind(isConnected)
                 # assert
                 self.assertEqual(expected, result, (isConnected))
 
