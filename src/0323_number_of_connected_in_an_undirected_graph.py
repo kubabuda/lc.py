@@ -9,19 +9,17 @@ class Solution:
             nodes[j].add(i)
         visited = set()
         
-        def visit_dfs(node, prev = -1):
-            if node in visited: return False
+        def visit_dfs(node):
+            if node in visited: return
             visited.add(node)
             for ne in nodes[node]:
-                if ne != prev and not visit_dfs(ne, node): return False
-            return True
+                visit_dfs(ne)
 
         result = 0
         for node in range(n):
             if node not in visited:
                 result += 1
-                if not visit_dfs(node):
-                    pass # cycle detected
+                visit_dfs(node)
         return result
 
     def countComponents_unionFind(self, n: int, edges: List[List[int]]) -> int:
@@ -53,6 +51,9 @@ class TestTemplate(unittest.TestCase):
         (5, [[0,1],[0,2],[0,3],[1,4]], 1),
         (5, [[0, 1], [1, 2], [3, 4]], 2),
         (6, [[0,1],[0,2],[0,3],[1,4]], 2),
+        (4, [[3, 2], [2, 1], [3, 0]], 1),
+        # (15, [[13, 8], [10, 5], [11, 10], [8, 7], [10, 4], [5, 3], [7, 0], [11, 9], [14, 9], [13, 6], [8, 6], [1, 0], [6, 3], [9, 4]], 3),
+        (15, [(0, 1), (0, 7), (4, 10), (10, 11), (4, 9), (6, 8), (8, 13), (5, 10), (6, 13), (7, 8), (3, 6), (9, 14), (9, 11), (3, 5)], 3)
     ]
 
     def testCases(self):
@@ -65,7 +66,7 @@ class TestTemplate(unittest.TestCase):
                 # assert
                 self.assertEqual(expected, result, (n, edges))
 
-    def testCases(self):
+    def testCases_unionFind(self):
         for n, edges, expected in self.param_list:
             with self.subTest():
                 # arrange
