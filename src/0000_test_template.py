@@ -22,7 +22,7 @@ class TestTemplate(unittest.TestCase):
         ([], []),
     ]
 
-    def testCases(self):
+    def testCases_method(self):
         for nums, expected in self.param_list:
             with self.subTest():
                 # arrange
