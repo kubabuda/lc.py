@@ -161,10 +161,6 @@ https://seanprashad.com/leetcode-patterns/
 https://neetcode.io/courses
 https://www.youtube.com/watch?v=6jf6SK9qWBc
 
-### LO Tarnow
-
-https://eduinf.waw.pl/inf/alg/001_search/0143.php
-
 ### Groking th Coding Interview
 
 https://designgurus.org/course/grokking-the-coding-interview
@@ -176,6 +172,10 @@ https://leetcode.com/discuss/general-discussion/460599/blind-75-leetcode-questio
 https://leetcode.com/explore/interview/card/top-interview-questions-medium/
 https://rattibha.com/thread/1518983285354819584?lang=en
 
+### LO Tarnow, Wazniak MIMUW
+
+https://eduinf.waw.pl/inf/alg/001_search/0143.php
+https://wazniak.mimuw.edu.pl/index.php?title=Algorytmy_i_struktury_danych
 
 ### MISC
 
