@@ -4,23 +4,15 @@ from typing import *
 
 class Solution:
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
-        def manhattanDist(p1, p2) -> int:
-            x1, y1 = p1
-            x2, y2 = p2
-            return abs(x1-x2) + abs(y1-y2)
-
         all_edges = []
-        for i, p1 in enumerate(points):
-            x1, y1 = p1
-            p1 = (x1, y1)
-            for x2, y2 in points[i+1:]:
-                p2 = (x2, y2)
-                if x1 != x2 and y1 != y2:
-                    all_edges.append((manhattanDist(p1,p2), p1, p2))
+        for i in range(len(points)):
+            for j in range(i+1, len(points)):
+                dist = abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1])
+                all_edges.append((dist, i, j))
         all_edges.sort()
 
-        pre = { (x,y):(x,y) for x,y in points }
-        rank = { p: 1 for p in pre }
+        pre = [ i for i in range(len(points)) ]
+        rank = [ p for p in pre ]
 
         def find(p) -> int:
             root = pre[p]
@@ -41,13 +33,13 @@ class Solution:
                 rank[p2] += rank[p1]
             return True
 
-        mst = set()
+        # mst = set() # minimal spanning tree
         cost_sum = 0
         for cost, p1, p2 in all_edges:
-            if union(p1, p2):
-                mst.add((p1,p2))
+            if find(p1) != find(p2):
+                union(p1, p2)
+                # mst.add((p1,p2))
                 cost_sum += cost
-        # print(mst)
         
         return cost_sum
 
@@ -59,6 +51,7 @@ class TestTemplate(unittest.TestCase):
     param_list = [
         ([[0,0],[2,2],[3,10],[5,2],[7,0]], 20),
         ([[3,12],[-2,5],[-4,1]], 18),
+        ([[0,0],[1,1],[1,0],[-1,1]], 4),
     ]
 
     def testCases_minCostConnectPoints(self):
