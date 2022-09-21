@@ -5,14 +5,13 @@ import heapq
 class Solution:
     def swimInWater(self, grid: List[List[int]]) -> int:
         n = len(grid)
-        result = 0
         visited = set()
         minheap = [(grid[0][0], 0, 0)] # (height, x, y)
         while minheap:
             maxH, x, y = heapq.heappop(minheap)
             if (x,y) in visited: continue
             visited.add((x,y))
-            if x == n-1 and y == n-1:
+            if x == y == n-1:
                 return maxH
             if x > 0 and (x-1,y) not in visited: 
                 heapq.heappush(minheap, (max(maxH, grid[x-1][y]), x-1,y))
@@ -23,7 +22,6 @@ class Solution:
             if y + 1 < n and (x,y+1) not in visited: 
                 heapq.heappush(minheap, (max(maxH, grid[x][y+1]), x,y+1))
 
-        return -1
 
 from unittest import TestCase
 import unittest
