@@ -1,7 +1,7 @@
 from typing import *
 import collections
 import heapq
-# https://leetcode.com/problems/
+# https://leetcode.com/problems/network-delay-time
 
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
