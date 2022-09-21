@@ -1,6 +1,6 @@
 from typing import *
 # https://leetcode.com/problems/min-cost-to-connect-all-points
-
+import heapq
 class Solution:
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
         """Kruskal algo"""
@@ -44,6 +44,28 @@ class Solution:
                 # mst.add((p1,p2))
                 cost_sum += cost    
         return cost_sum
+    
+    def minCostConnectPointsPrim(self, points: List[List[int]]) -> int:
+        """Prim algo"""
+        def manhattan(i, j):
+            p1, p2 = points[i], points[j]
+            return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
+
+        visited = set()
+        dist_sum = 0
+        minheap = [(0,0)]
+
+        while minheap:
+            dist, node = heapq.heappop(minheap)
+            if node in visited:
+                continue
+            visited.add(node)
+            dist_sum += dist
+            for i in range(len(points)):
+                if i != node and not i in visited:
+                    heapq.heappush(minheap, (manhattan(node, i), i))
+        
+        return dist_sum
 
 
 from unittest import TestCase
@@ -64,6 +86,16 @@ class TestTemplate(unittest.TestCase):
                 s = Solution()
                 # act
                 result = s.minCostConnectPoints(points)
+                # assert
+                self.assertEqual(expected, result, (points))
+
+    def testCases_minCostConnectPointsPrim(self):
+        for points, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                s = Solution()
+                # act
+                result = s.minCostConnectPointsPrim(points)
                 # assert
                 self.assertEqual(expected, result, (points))
 
