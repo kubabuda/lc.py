@@ -1,4 +1,5 @@
 from typing import *
+# "title".toLocaleLowerCase().replaceAll(".","").replaceAll(" ", "_").replaceAll("-","_");
 # https://leetcode.com/problems/
 
 class Solution:
