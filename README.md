@@ -78,7 +78,7 @@ Graph
 Interval
 
 - ❗ Insert Interval - https://leetcode.com/problems/insert-interval/
-- Merge Intervals - https://leetcode.com/problems/merge-intervals/
+- ✔️ Merge Intervals - https://leetcode.com/problems/merge-intervals/
 - Non-overlapping Intervals - https://leetcode.com/problems/non-overlapping-intervals/
 - Meeting Rooms (Leetcode Premium) - https://leetcode.com/problems/meeting-rooms/
 - Meeting Rooms II (Leetcode Premium) - https://leetcode.com/problems/meeting-rooms-ii/
@@ -171,6 +171,11 @@ https://www.teamblind.com/post/New-Year-Gift---Curated-List-of-Top-75-LeetCode-Q
 https://leetcode.com/discuss/general-discussion/460599/blind-75-leetcode-questions
 https://leetcode.com/explore/interview/card/top-interview-questions-medium/
 https://rattibha.com/thread/1518983285354819584?lang=en
+
+## Theory
+
+https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/video_galleries/lecture-videos/
+https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/
 
 ### LO Tarnow, Wazniak MIMUW
 
