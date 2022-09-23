@@ -8,6 +8,7 @@ class ListNode:
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
+        "O(n) time O(n) space"
         visited = set()
         curr = head
         while curr:
@@ -17,7 +18,7 @@ class Solution:
         return False
 
     def hasCycleO1(self, head: Optional[ListNode]) -> bool:
-        "Pointer fast and slow approach, with O(1) space complexity"
+        "pointer fast and slow approach, O(n) time O(1) space"
         slow = head
         fast = None if not head else head.next
         while fast and fast.next and fast.next.next:
