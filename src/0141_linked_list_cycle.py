@@ -16,6 +16,17 @@ class Solution:
             curr = curr.next
         return False
 
+    def hasCycleO1(self, head: Optional[ListNode]) -> bool:
+        "Pointer fast and slow approach, with O(1) space complexity"
+        slow = head
+        fast = None if not head else head.next
+        while fast and fast.next and fast.next.next:
+            if fast is slow or fast.next is slow or fast.next.next is slow:
+                return True
+            fast = fast.next.next
+            slow = slow.next
+        return False
+
 
 from unittest import TestCase
 import unittest
@@ -37,25 +48,42 @@ class SolutionTests(unittest.TestCase):
                 # arrange
                 s = Solution()
                 head = LoadListNode(nums)
-                if i >= 0:
-                    tail = head
-                    while tail.next:
-                        tail = tail.next
-                    tailNext = head
-                    for _ in range(i):
-                        if tailNext.next:
-                            tailNext = tailNext.next
-                    tail.next = tailNext
+                LoopListNodeTailToNthElement(head, i)
                 # act
                 result = s.hasCycle(head)
                 # assert
                 self.assertEqual(expected, result, (nums, i))
+
+    def testCases_hasCycleO1(self):
+        for nums, i, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                s = Solution()
+                head = LoadListNode(nums)
+                LoopListNodeTailToNthElement(head, i)
+                # act
+                result = s.hasCycleO1(head)
+                # assert
+                self.assertEqual(expected, result, (nums, i))
+
 
 def LoadListNode(arr):
     head = None
     for n in arr[::-1]:
         head = ListNode(n, head)
     return head
+
+def LoopListNodeTailToNthElement(head, i):
+    if i >= 0:
+        tail = head
+        while tail.next:
+            tail = tail.next
+        tailNext = head
+        for _ in range(i):
+            if tailNext.next:
+                tailNext = tailNext.next
+        tail.next = tailNext
+
 
 if __name__ == '__main__':
     unittest.main()
