@@ -4,19 +4,18 @@ from typing import *
 
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
-        result = sorted(intervals)
-        if result:
-            prev = result[0]
-            for i, inter in enumerate(result[1:]):
+        s_intervals = sorted(intervals)
+        result = 0
+        if s_intervals:
+            prev = s_intervals[0]
+            for i, inter in enumerate(s_intervals[1:]):
                 if inter[0] < prev[1]:
+                    result += 1
                     if inter[1] < prev[1]:
-                        result.remove(prev)
                         prev = inter
-                    else:
-                        result.remove(inter)
                 else: 
                     prev = inter
-        return len(intervals) - len(result)
+        return result
 
 from unittest import TestCase
 import unittest
