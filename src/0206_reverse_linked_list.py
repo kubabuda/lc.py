@@ -5,24 +5,7 @@ from typing import *
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
-        self.next = next
-    
-    def toArray(self, arr=None):
-        if not arr: arr = []
-        arr.append(self.val)
-        if self.next: self.next.toArray(arr)
-        return arr
-
-    def __str__(self):
-        return f"LNode {self.val},ne={self.next}"
-
-    @classmethod
-    def load(cls, arr):
-        head = None
-        for n in arr[::-1]:
-            head = ListNode(n, head)
-        return head
-    
+        self.next = next    
 
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
@@ -52,12 +35,23 @@ class SolutionTests(unittest.TestCase):
             with self.subTest():
                 # arrange
                 s = Solution()
-                ll = ListNode.load(nums)
+                head = LoadListNode(nums)
                 # act
-                result = s.reverseList(ll)
+                result = s.reverseList(head)
                 # assert
-                self.assertEqual(expected, result.toArray(), (nums))
+                self.assertEqual(expected, ListNodeToArray(result), (nums))
 
+def LoadListNode(arr):
+    head = None
+    for n in arr[::-1]:
+        head = ListNode(n, head)
+    return head
+
+def ListNodeToArray(node, arr=None):
+    if not arr: arr = []
+    arr.append(node.val)
+    if node.next: ListNodeToArray(node.next, arr)
+    return arr
 
 if __name__ == '__main__':
     unittest.main()
