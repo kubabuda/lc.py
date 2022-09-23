@@ -4,31 +4,19 @@ from typing import *
 
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
-        intervals = sorted(intervals)
-        overlaps = [ set() for i in intervals ]
-        for i, inter in enumerate(intervals):
-            j = i - 1
-            while j > 0 and intervals[j][1] > intervals[i][0]:
-                overlaps[i].add(j)
-                overlaps[j].add(i)
-                j -= 1
-            j = i + 1
-            while j < len(intervals) and intervals[j][0] < intervals[i][1]:
-                overlaps[i].add(j)
-                overlaps[j].add(i)
-                j += 1
-        act_overlaps = { i: o for i, o in enumerate(overlaps) if o }
-        result = 0
-        while act_overlaps:
-            result += 1
-            i = max(act_overlaps, key=lambda i: len(act_overlaps[i]))
-            for j in act_overlaps[i]:
-                act_overlaps[j].remove(i)
-                if not act_overlaps[j]:
-                    act_overlaps.pop(j)
-            act_overlaps.pop(i)
-        
-        return result
+        result = sorted(intervals)
+        if result:
+            prev = result[0]
+            for i, inter in enumerate(result[1:]):
+                if inter[0] < prev[1]:
+                    if inter[1] < prev[1]:
+                        result.remove(prev)
+                        prev = inter
+                    else:
+                        result.remove(inter)
+                else: 
+                    prev = inter
+        return len(intervals) - len(result)
 
 from unittest import TestCase
 import unittest
@@ -40,7 +28,8 @@ class TestTemplate(unittest.TestCase):
         ([[1,2],[2,3],[3,4],[1,3]], 1),
         ([[1,2],[1,2],[1,2]], 2),
         ([[1,2],[2,3]], 0),
-        ([[0,2],[1,3],[1,3],[2,4],[3,5],[3,5],[4,6]], 4)
+        ([[0,2],[1,3],[1,3],[2,4],[3,5],[3,5],[4,6]], 4),
+        ([[-52,31],[-73,-26],[82,97],[-65,-11],[-62,-49],[95,99],[58,95],[-31,49],[66,98],[-63,2],[30,47],[-40,-26]], 7),
     ]
 
     def testCases_eraseOverlapIntervals(self):
