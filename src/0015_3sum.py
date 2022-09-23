@@ -31,7 +31,7 @@ class Solution:
 from unittest import TestCase
 import unittest
 
-class TestTemplate(unittest.TestCase):     
+class SolutionTests(unittest.TestCase):     
     def testCases(self):
         param_list = [
             # ([-1,0,1,2,-1,-4], [[-1,-1,2],[-1,0,1]]),

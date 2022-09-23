@@ -46,7 +46,7 @@ class Solution:
 from unittest import TestCase
 import unittest
 
-class TestTemplate(unittest.TestCase): 
+class SolutionTests(unittest.TestCase): 
     def testCases(self):
         param_list = [
             ([1,8,6,2,5,4,8,3,7], 49),

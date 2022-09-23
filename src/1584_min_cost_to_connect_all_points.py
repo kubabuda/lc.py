@@ -71,7 +71,7 @@ class Solution:
 from unittest import TestCase
 import unittest
 
-class TestTemplate(unittest.TestCase): 
+class SolutionTests(unittest.TestCase): 
     
     param_list = [
         ([[0,0],[2,2],[3,10],[5,2],[7,0]], 20),

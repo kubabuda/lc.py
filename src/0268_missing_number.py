@@ -10,7 +10,7 @@ class Solution:
 from unittest import TestCase
 import unittest
 
-class TestTemplate(unittest.TestCase): 
+class SolutionTests(unittest.TestCase): 
     def testCases(self):
         param_list = [
             ([0,1], 2),

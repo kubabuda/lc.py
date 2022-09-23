@@ -88,7 +88,7 @@ class Solution:
 
 from unittest import TestCase
 import unittest
-class TestTemplate(unittest.TestCase): 
+class SolutionTests(unittest.TestCase): 
     param_list = param_list = [
         ([
             ["0","0","0","0","0"],

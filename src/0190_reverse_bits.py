@@ -15,7 +15,7 @@ class Solution:
 from unittest import TestCase
 import unittest
 
-class TestTemplate(unittest.TestCase): 
+class SolutionTests(unittest.TestCase): 
     def testCases(self):
         param_list = [
             (0b00000010100101000001111010011100, 0b00111001011110000010100101000000),

@@ -61,7 +61,7 @@ class Solution:
         
 from unittest import TestCase
 import unittest
-class TestTemplate(unittest.TestCase): 
+class SolutionTests(unittest.TestCase): 
     
     param_list = [
         (['wrt','wrf','er','ett','rftt'], 'wertf'),
