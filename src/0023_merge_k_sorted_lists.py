@@ -30,6 +30,29 @@ class Solution:
                 r_tail = r_tail.next
         return result
 
+    def mergeKLists2(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        """bruteforce approach"""
+        result = None
+        r_tail = None
+        
+        values = []
+        for node in lists:
+            while node:
+                values.append(node.val)
+                node = node.next
+        values.sort()
+                
+        for val in values:
+            to_add = ListNode(val=val)
+            if not result:
+                result = to_add
+                r_tail = result
+            else:
+                r_tail.next = to_add
+                r_tail = r_tail.next
+        return result
+
+
 from unittest import TestCase
 import unittest
 
@@ -49,6 +72,17 @@ class SolutionTests(unittest.TestCase):
                 lists = [ LoadListNode(n) for n in nums ]
                 # act
                 result = s.mergeKLists(lists)
+                # assert
+                self.assertEqual(expected, ListNodeToArray(result), (nums))
+
+    def testCases_mergeKLists2(self):
+        for nums, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                s = Solution()
+                lists = [ LoadListNode(n) for n in nums ]
+                # act
+                result = s.mergeKLists2(lists)
                 # assert
                 self.assertEqual(expected, ListNodeToArray(result), (nums))
 
