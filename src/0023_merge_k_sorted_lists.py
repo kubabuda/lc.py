@@ -38,12 +38,11 @@ class Solution:
         values = []
         for node in lists:
             while node:
-                values.append(node.val)
+                values.append(node)
                 node = node.next
-        values.sort()
+        values.sort(key=lambda n: n.val)
                 
-        for val in values:
-            to_add = ListNode(val=val)
+        for to_add in values:
             if not result:
                 result = to_add
                 r_tail = result
