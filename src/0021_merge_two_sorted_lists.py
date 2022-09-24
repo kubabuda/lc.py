@@ -1,6 +1,6 @@
 from typing import *
 # 21. Merge Two Sorted Lists
-# https://leetcode.com/problems/
+# https://leetcode.com/problems/merge-two-sorted-lists
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
