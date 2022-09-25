@@ -9,19 +9,19 @@ class ListNode:
 
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        """one big min heap approach"""
+        """one big min heap approach
+        O(n*k*log (k*n))time, O(k*n) space"""
         result = None
         r_tail = None
         
         minheap = []
         for node in lists:
             while node:
-                heapq.heappush(minheap, node.val)
+                heapq.heappush(minheap, (node.val, id(node), node)) # added id so ListNode comparison wont be used for duplicated values
                 node = node.next
                 
         while minheap:
-            val = heapq.heappop(minheap)
-            to_add = ListNode(val=val)
+            val, _obj_id, to_add = heapq.heappop(minheap)
             if not result:
                 result = to_add
                 r_tail = result
@@ -31,7 +31,8 @@ class Solution:
         return result
 
     def mergeKLists2(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        """bruteforce approach"""
+        """bruteforce approach
+        O(n*k*log (k*n))time, O(k*n) space"""
         result = None
         r_tail = None
         
@@ -49,6 +50,31 @@ class Solution:
             else:
                 r_tail.next = to_add
                 r_tail = r_tail.next
+        return result
+
+    def mergeKLists3(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        """small min heap approach
+        O(n*k*log k)time, O(k) space"""
+        result = None
+        r_tail = None
+        
+        minheap = []
+        for i, node in enumerate(lists):
+            if node:
+                heapq.heappush(minheap, (node.val, i, node))
+                
+        while minheap:
+            val, i, to_add = heapq.heappop(minheap)
+            if to_add.next:
+                ne = to_add.next
+                heapq.heappush(minheap, (ne.val, i, ne))
+            if not result:
+                result = to_add
+                r_tail = result
+            else:
+                r_tail.next = to_add
+                r_tail = r_tail.next
+
         return result
 
 
@@ -82,6 +108,17 @@ class SolutionTests(unittest.TestCase):
                 lists = [ LoadListNode(n) for n in nums ]
                 # act
                 result = s.mergeKLists2(lists)
+                # assert
+                self.assertEqual(expected, ListNodeToArray(result), (nums))
+
+    def testCases_mergeKLists3(self):
+        for nums, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                s = Solution()
+                lists = [ LoadListNode(n) for n in nums ]
+                # act
+                result = s.mergeKLists3(lists)
                 # assert
                 self.assertEqual(expected, ListNodeToArray(result), (nums))
 
