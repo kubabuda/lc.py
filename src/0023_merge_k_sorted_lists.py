@@ -76,6 +76,42 @@ class Solution:
                 r_tail = r_tail.next
 
         return result
+    
+    def mergeKLists4(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        """tree of merge 2 lists
+        O(n*k*log k)time, O(k) space"""        
+        if not lists: return None        
+
+        def merge2Lists(list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+            head = tail = None
+            while list1 or list2:
+                if list1 and (not list2 or list1.val <= list2.val):
+                    to_add = list1
+                    list1 = list1.next
+                else:
+                    to_add = list2
+                    list2 = list2.next
+                if not head:
+                    head = to_add
+                    tail = head
+                else:
+                    tail.next = to_add
+                    tail = tail.next
+            return head
+
+        while len(lists) > 1:
+            merged = []
+            i = 0
+            while i < len(lists):
+                if i + 1 < len(lists):
+                    m = merge2Lists(lists[i], lists[i + 1])
+                    merged.append(m)
+                    i += 1
+                else:
+                    merged.append(lists[i])
+                i += 1
+            lists = merged
+        return lists[0]
 
 
 from unittest import TestCase
@@ -121,7 +157,17 @@ class SolutionTests(unittest.TestCase):
                 result = s.mergeKLists3(lists)
                 # assert
                 self.assertEqual(expected, ListNodeToArray(result), (nums))
-
+    
+    def testCases_mergeKLists4(self):
+        for nums, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                s = Solution()
+                lists = [ LoadListNode(n) for n in nums ]
+                # act
+                result = s.mergeKLists4(lists)
+                # assert
+                self.assertEqual(expected, ListNodeToArray(result), (nums))
 
 def LoadListNode(arr):
     head = None
