@@ -33,38 +33,28 @@ class Solution:
 
     def reorderList2(self, head: Optional[ListNode]):
         """O(1) space O(n) time"""
-        tail = head
-        n = 0
-        while tail:
-            tail = tail.next
-            n += 1          # count nodes in input
+        fast = slow = head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        rhead = slow.next   # find midpoint of linked list
+        prev = slow.next = None
     
-        def reverseLL(node, prev=None):
-            if not node: return prev
-            ne = node.next
-            node.next = prev
-            return reverseLL(ne, node)
-    
-        skip = int(n / 2)
-        if n % 2: skip += 1
-        rhead = None        # after half of input
-        i = 1               # reverse second half
-        tail = head
-        while i < skip:
-            tail = tail.next
-            i += 1
-        
-        rhead = reverseLL(tail.next)
-        tail.next = None    # cutoff reversed half from original
-        result = head       # start from original head
-        head = head.next
-        tail = result
+        while rhead:        # reverse second half of linked list 
+            temp = rhead.next
+            rhead.next = prev
+            prev = rhead
+            rhead = temp
+        rhead = prev
+
+        result = tail = head # start from original head
+        head = head.next    # skip node already in result 
         while head or rhead:
             if rhead:       # add one from end (reversed head)
                 tail.next = rhead
                 rhead = rhead.next
                 tail = tail.next
-            if head:        # add one from original head
+            if head:        # add one from beginning
                 tail.next = head
                 head = head.next
                 tail = tail.next
@@ -76,6 +66,7 @@ import unittest
 class SolutionTests(unittest.TestCase): 
 
     param_list = [
+        ([1], [1]),
         ([1,2,3,4], [1,4,2,3]),
         ([1,2,3,4,5], [1,5,2,4,3]),
     ]
