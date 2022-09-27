@@ -16,20 +16,17 @@ class Solution:
         nodes = collections.deque()
         tail = head.next
         while tail:
-            curr = tail
+            nodes.append(tail)
             tail = tail.next
-            curr.next = None # whyy is it needed
-            nodes.append(curr)
-        i = 0
+            nodes[-1].next = None   # needed so last element doesnt introduce cycle
+
         tail = head
         while nodes:
-            if i % 2:
-                curr = nodes.popleft()
-            else: 
-                curr = nodes.pop()
-            tail.next = curr
+            tail.next = nodes.pop()
             tail = tail.next
-            i += 1
+            if nodes:
+                tail.next = nodes.popleft()
+                tail = tail.next
 
     def reorderList2(self, head: Optional[ListNode]):
         """O(1) space O(n) time"""
