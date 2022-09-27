@@ -19,7 +19,6 @@ class Solution:
             nodes.append(tail)
             tail = tail.next
             nodes[-1].next = None   # needed so last element doesnt introduce cycle
-
         tail = head
         while nodes:
             tail.next = nodes.pop()
@@ -44,7 +43,7 @@ class Solution:
             rhead = temp
         rhead = prev
 
-        result = tail = head # start from original head
+        tail = head # start from original head
         head = head.next    # skip node already in result 
         while head or rhead:
             if rhead:       # add one from end (reversed head)
