@@ -28,10 +28,11 @@ class Solution:
         O(m*n) time
         O(1) space
         """
+        ROWS, COLS = len(matrix), len(matrix[0])
         first = False
-        for row, rowVals in enumerate(matrix):
-            for col, colVal in enumerate(rowVals):
-                if colVal == 0:
+        for row in range(ROWS):
+            for col in range(COLS):
+                if matrix[row][col] == 0:
                     matrix[0][col] = 0
                     if row == 0:
                         first = True
@@ -39,15 +40,15 @@ class Solution:
                         matrix[row][0] = 0
         for row in matrix[1:]:
             if row[0] == 0:
-                for i in range(1, len(row)):
-                    row[i] = 0
-        for col, cval in enumerate(matrix[0]):
-            if cval == 0:
-                for i in range(1, len(matrix)):
-                    matrix[i][col] = 0
+                for col in range(COLS):
+                    row[col] = 0
+        for col in range(COLS):
+            if matrix[0][col] == 0:
+                for row in range(ROWS):
+                    matrix[row][col] = 0
         if first:
-            for i in range(0, len(matrix[0])):
-                    matrix[0][i] = 0
+            for col in range(COLS):
+                    matrix[0][col] = 0
 
 
 from unittest import TestCase
