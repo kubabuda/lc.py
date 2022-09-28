@@ -9,8 +9,8 @@ class Solution:
         O(m*n) time
         O(m+n) space
         """
-        rows0 = set()  # x
-        cols0 = set()  # y
+        rows0 = set()
+        cols0 = set()
         for x, row in enumerate(matrix):
             for y, c in enumerate(row):
                 if c == 0:
@@ -22,27 +22,66 @@ class Solution:
         for col in cols0:
             for i in range(len(matrix)):
                 matrix[i][col] = 0
-            
+    
+    def setZeroes2(self, matrix: List[List[int]]) -> None:
+        """
+        O(m*n) time
+        O(1) space
+        """
+        first = False
+        for row, rowVals in enumerate(matrix):
+            for col, colVal in enumerate(rowVals):
+                if colVal == 0:
+                    matrix[0][col] = 0
+                    if row == 0:
+                        first = True
+                    else:
+                        matrix[row][0] = 0
+        for row in matrix[1:]:
+            if row[0] == 0:
+                for i in range(1, len(row)):
+                    row[i] = 0
+        for col, cval in enumerate(matrix[0]):
+            if cval == 0:
+                for i in range(1, len(matrix)):
+                    matrix[i][col] = 0
+        if first:
+            for i in range(0, len(matrix[0])):
+                    matrix[0][i] = 0
+
 
 from unittest import TestCase
 import unittest
 
 class SolutionTests(unittest.TestCase): 
     
-    param_list = [
-        ([], []),
+    param_list = lambda self: [
+        ([[1,0]], [[0,0]]),
         ([[1,1,1],[1,0,1],[1,1,1]], [[1,0,1],[0,0,0],[1,0,1]]),
         ([[0,1,2,0],[3,4,5,2],[1,3,1,5]], [[0,0,0,0],[0,4,5,0],[0,3,1,0]]),
+        ([[1,2,3,4],[5,0,7,8],[0,10,11,12],[13,14,15,0]], [[0,0,3,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]),
+        ([[-4,-2147483648,6,-7,0],[-8,6,-8,-6,0],[2147483647,2,-9,-6,-10]], [[0,0,0,0,0],[0,0,0,0,0],[2147483647,2,-9,-6,0]]),
     ]
 
     def testCases_setZeroes(self):
-        for nums, expected in self.param_list:
+        for nums, expected in self.param_list():
             with self.subTest():
                 # arrange
                 s = Solution()
                 numsCopy = [[i for i in n] for n in nums]
                 # act
                 s.setZeroes(nums)
+                # assert
+                self.assertEqual(expected, nums, (numsCopy))
+
+    def testCases_setZeroes2(self):
+        for nums, expected in self.param_list():
+            with self.subTest():
+                # arrange
+                s = Solution()
+                numsCopy = [[i for i in n] for n in nums]
+                # act
+                s.setZeroes2(nums)
                 # assert
                 self.assertEqual(expected, nums, (numsCopy))
 
