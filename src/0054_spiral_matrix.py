@@ -7,7 +7,8 @@ class Solution:
         xs, xe = 0, len(matrix) - 1
         ys, ye = 0, len(matrix[0]) - 1
         result = []
-        while (xs < xe and ys <= ye) or (ys < ye and xs <= xe):
+        while xe > xs or ye > ys:
+            if ye < ys or xe < xs: break
             for y in range(ys, ye + 1):
                 result.append(matrix[xs][y])
             for x in range(xs + 1, xe):
