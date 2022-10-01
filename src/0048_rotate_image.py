@@ -5,11 +5,11 @@ from typing import *
 class Solution:
     def rotate(self, matrix: List[List[int]]) -> None:
         N = len(matrix) - 1
-        h = int(N / 2)
-        hx = h + 1 if N % 2 else h
+        h = int(N / 2) + 1
+        hx = h - 1 if not N % 2 else h # rotated facet is not square in odd-lengthed array
 
         for xi in range(hx):
-            for yi in range(h + 1):
+            for yi in range(h):
                 temp = matrix[xi][yi]                       # LT
                 matrix[xi][yi] = matrix[N - yi][xi]         # LL into LT
                 matrix[N - yi][xi] = matrix[N - xi][N - yi] # RL into LL
