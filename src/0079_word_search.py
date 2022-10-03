@@ -7,30 +7,23 @@ class Solution:
         M = len(board)
         N = len(board[0])
         
-        def isWord(word, point, visited = None):
-            if not word: return True
-            x,y = point
-            if board[x][y] != word[0]: return False
-            if not visited: visited = set()
-            if point in visited: return False
-            visited.add(point)
-            wordRem = word[1:]
-            if not wordRem: return True
-            nei = []
-            if x > 0: nei.append((x-1, y))
-            if x+1 < M: nei.append((x+1, y))
-            if y > 0: nei.append((x, y-1))
-            if y+1 < N: nei.append((x, y+1))
-            pos_nei = [(m,n) for m,n in nei if (m,n) not in visited]
-            for ne in pos_nei:
-                if isWord(wordRem, ne, visited): return True
-            visited.remove(point)
+        def isWord(x, y, i = 0):
+            if board[x][y] != word[i]: return False
+            if i + 1 >= len(word): return True
+            board[x][y] = ' '
+            nei = i + 1
+            if x > 0 and isWord(x-1, y, nei) \
+            or x+1 < M and isWord(x+1, y, nei) \
+            or y > 0 and isWord(x, y-1, nei) \
+            or y+1 < N and isWord(x, y+1, nei):
+                return True
+            board[x][y] = word[i]
             return False
     
         for x in range(M):
             for y in range(N):
-                if isWord(word, (x,y)): return True
-        return False    
+                if isWord(x, y): return True
+        return False
 
 
 from unittest import TestCase
@@ -41,12 +34,12 @@ class SolutionTests(unittest.TestCase):
     param_list = lambda self: [
         ([['a']], 'a', True),
         ([['a']], 'b', False),
-        # ([["A","B","C","E"],
-        #   ["S","F","C","S"],
-        #   ["A","D","E","E"]], "ABCCED", True),
-        # ([["A","B","C","E"],
-        #   ["S","F","C","S"],
-        #   ["A","D","E","E"]],"SEE", True),
+        ([["A","B","C","E"],
+          ["S","F","C","S"],
+          ["A","D","E","E"]], "ABCCED", True),
+        ([["A","B","C","E"],
+          ["S","F","C","S"],
+          ["A","D","E","E"]],"SEE", True),
     ]
 
     def testCases_exist(self):
