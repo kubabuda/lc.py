@@ -5,22 +5,16 @@ from typing import *
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
         counts = { c:0 for c in s }
-        if len(counts) == 1: return len(s)
+        # if len(counts) == 1: return len(s)
         maxL = 0
         left = 0
-        right = 0
-        counts[s[0]] = 1
 
-        while left < len(s):
-            L = right - left - 1
-            maxL = max(L, maxL)
-            if L - max(counts.values()) < k:
-                right += 1
-                if right < len(s):
-                    counts[s[right]] += 1
-            else:
+        for right in range(len(s)):
+            counts[s[right]] += 1
+            while (right - left + 1) - max(counts.values()) > k:
                 counts[s[left]] -= 1
                 left += 1
+            maxL = max((right - left + 1), maxL)
         return maxL
 
 
