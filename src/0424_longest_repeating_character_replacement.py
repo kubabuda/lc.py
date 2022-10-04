@@ -4,23 +4,23 @@ from typing import *
 
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        uniqC = set((c for c in s))
-        if len(uniqC) == 1: return len(s)
+        counts = { c:0 for c in s }
+        if len(counts) == 1: return len(s)
         maxL = 0
-        for i,c in enumerate(uniqC):
-            left = 0
-            right = 0
-            toRepl = 0
-            while left < len(s):
-                if right < len(s) and toRepl < k or right + 1 < len(s) and s[right] == c:
-                    right += 1
-                    if right < len(s) and s[right] != c:
-                        toRepl += 1
-                else:
-                    if s[left] != c:
-                        toRepl -= 1
-                    left += 1
-                maxL = max(right - left, maxL)
+        left = 0
+        right = 0
+        counts[s[0]] = 1
+
+        while left < len(s):
+            L = right - left - 1
+            maxL = max(L, maxL)
+            if L - max(counts.values()) < k:
+                right += 1
+                if right < len(s):
+                    counts[s[right]] += 1
+            else:
+                counts[s[left]] -= 1
+                left += 1
         return maxL
 
 
