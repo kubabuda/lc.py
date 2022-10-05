@@ -4,23 +4,16 @@ from typing import *
 
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        def countCharacters(word: str):
-            counts = {}
-            for c in word:
-                if not c in counts: counts[c] = 0
-                counts[c] += 1
-            return counts
+        count_s = Counter(s)
+        count_t = Counter(t)
 
-        count_s = countCharacters(s)
-        count_t = countCharacters(t)
-
-        def hasAll():
+        def isWindow():
             for ct in count_t:
                 if ct not in count_s or count_s[ct] < count_t[ct]:
                     return False
             return True
         
-        if not hasAll(): return ""
+        if not isWindow(): return ""
 
         count_s = { c: 0 for c in count_s }
         minL = s
@@ -28,7 +21,7 @@ class Solution:
 
         for r in range(len(s)):
             count_s[s[r]] += 1
-            while hasAll():
+            while isWindow():
                 subs = s[l:r+1]
                 if len(subs) < len(minL): minL = subs
                 count_s[s[l]] -= 1
