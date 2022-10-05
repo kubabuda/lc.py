@@ -16,18 +16,19 @@ class Solution:
         if not isWindow(): return ""
 
         count_s = { c: 0 for c in count_s }
-        minL = s
+        minL = (0, len(s))
         l = 0    
 
         for r in range(len(s)):
             count_s[s[r]] += 1
             while isWindow():
-                subs = s[l:r+1]
-                if len(subs) < len(minL): minL = subs
+                
+                if (r+1-l) < minL[1]-minL[0]:
+                    minL = (l, r+1)
                 count_s[s[l]] -= 1
                 l += 1
 
-        return minL
+        return s[minL[0]:minL[1]]
 
 
 from unittest import TestCase
