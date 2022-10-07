@@ -19,9 +19,7 @@ class Solution:
 
     def characterReplacementF(self, s: str, k: int) -> int:
         counts = { }
-        maxL = 0
-        maxF = 0
-        left = 0
+        maxL = maxF = left = 0
 
         for right in range(len(s)):
             counts[s[right]] = 1 + counts.get(s[right], 0)
