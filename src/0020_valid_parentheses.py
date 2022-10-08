@@ -16,7 +16,7 @@ class Solution:
             else:
                 if not opened: return False
                 last = opened.pop()
-                if last not in par or par[last] != c: return False
+                if par[last] not c: return False
         return not opened
 
 
