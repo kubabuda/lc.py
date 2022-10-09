@@ -7,7 +7,7 @@ class Solution:
         """O(m*n log n) time"""
         groups = {}
         for s in strs:
-            ss = "".join(sorted(s))
+            ss = str(sorted(s))
             if ss not in groups:
                 groups[ss] = []
             groups[ss].append(s)
@@ -17,13 +17,17 @@ class Solution:
     def groupAnagramsH(self, strs: List[str]) -> List[List[str]]:
         """O(m*n) time"""
         groups = {}
-        ord_a = ord('a')
+        orda, ordz = ord('a'), ord('z')
+        chars = [chr(orda + i) for i in range(ordz - orda + 1)]
+        sc = { c:0 for c in chars }
+
         for s in strs:
-            sc = Counter(s)
+            for c in sc: sc[c] = 0
+            for c in s: sc[c] += 1
             ss = 0
-            for c in (chr(ord_a + i) for i in range(26)):
-                ss |= sc[c]
+            for c in chars:
                 ss <<= 14
+                ss |= sc[c]
             if ss not in groups:
                 groups[ss] = []
             groups[ss].append(s)
