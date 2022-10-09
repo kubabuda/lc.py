@@ -4,15 +4,7 @@ from typing import *
 
 class Solution:
     def isValid(self, s: str) -> bool:
-        orda, ordz, ord0, ord9 = ord('a'), ord('z'), ord('0'), ord('9')
-
-        def isAlfanumeric(c):
-            ordc = ord(c)
-            if orda <= ordc <= ordz: return True
-            if ord0 <= ordc <= ord9: return True
-            return False
-
-        s = [c for c in s.lower() if isAlfanumeric(c)]
+        s = [c for c in s.lower() if c.isalnum()]
         l, r = 0, len(s) - 1
         while l < r:
             if s[l] != s[r]: 
