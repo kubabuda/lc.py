@@ -16,12 +16,11 @@ class Solution:
                 r += 1
             l = i
             r = l + 1
-            if s[l] == s[r]:
-                while l >= 0 and r <= N and s[l] == s[r]:
-                    if r - l > maxR - maxL:
-                        maxL, maxR = l, r
-                    l -= 1
-                    r += 1
+            while l >= 0 and r <= N and s[l] == s[r]:
+                if r - l > maxR - maxL:
+                    maxL, maxR = l, r
+                l -= 1
+                r += 1
         return s[maxL:maxR+1]
 
 
