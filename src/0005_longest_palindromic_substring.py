@@ -6,19 +6,22 @@ class Solution:
     def longestPalindrome(self, s: str) -> str:
         "O(n**2) time O(1) space"
         if not s: return ""
-        maxL, maxR, N = 0, 0, len(s) -1
+        N = len(s)
+        maxL, maxR, maxLen = 0, 0, 0
         for i in range(N):
             l = r = i
-            while l >= 0 and r <= N and s[l] == s[r]:
-                if r - l > maxR - maxL:
+            while l >= 0 and r < N and s[l] == s[r]:
+                if r - l > maxLen:
                     maxL, maxR = l, r
+                    maxLen = r - l
                 l -= 1
                 r += 1
             l = i
             r = l + 1
-            while l >= 0 and r <= N and s[l] == s[r]:
-                if r - l > maxR - maxL:
+            while l >= 0 and r < N and s[l] == s[r]:
+                if r - l > maxLen:
                     maxL, maxR = l, r
+                    maxLen = r - l
                 l -= 1
                 r += 1
         return s[maxL:maxR+1]
