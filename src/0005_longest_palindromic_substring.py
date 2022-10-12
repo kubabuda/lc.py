@@ -5,7 +5,6 @@ from typing import *
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         "O(n**2) time O(1) space"
-        if not s: return ""
         N = len(s)
         maxL, maxR, maxLen = 0, 0, 0
         for i in range(N):
