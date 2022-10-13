@@ -116,7 +116,7 @@ String
 - ❗ Valid Palindrome - https://leetcode.com/problems/valid-palindrome/
 - ❗ Longest Palindromic Substring - https://leetcode.com/problems/longest-palindromic-substring/
 - ✔️ Palindromic Substrings - https://leetcode.com/problems/palindromic-substrings/
-- Encode and Decode Strings (Leetcode Premium) - https://leetcode.com/problems/encode-and-decode-strings/
+- ✔️ Encode and Decode Strings (Leetcode Premium) - https://leetcode.com/problems/encode-and-decode-strings/
 
 ---
 

@@ -14,8 +14,9 @@ class Solution:
         start = i + 1
         result = []
         for le in lengths:
-            result.append(s[start:start+le])
-            start += le
+            end = start + le
+            result.append(s[start:end])
+            start = end
         return result
 
 from unittest import TestCase
