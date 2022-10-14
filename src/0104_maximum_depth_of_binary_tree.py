@@ -15,10 +15,9 @@ class Solution:
         maxH = 0
 
         if root:
-            h = 1
-            maxH = h
-            if root.left: toVisit.append((root.left, h + 1))
-            if root.right: toVisit.append((root.right, h + 1))
+            maxH = 1
+            if root.left: toVisit.append((root.left, 2))
+            if root.right: toVisit.append((root.right, 2))
 
         while toVisit:
             node, h = toVisit.pop()
