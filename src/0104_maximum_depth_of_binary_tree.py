@@ -1,4 +1,5 @@
 from typing import *
+import collections
 # 104. Maximum Depth of Binary Tree
 # https://leetcode.com/problems/maximum-depth-of-binary-tree/
 class TreeNode:
@@ -11,26 +12,33 @@ class TreeNode:
 
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        toVisit = []
+        if not root: return 0
         maxH = 0
-
-        if root:
-            maxH = 1
-            if root.left: toVisit.append((root.left, 2))
-            if root.right: toVisit.append((root.right, 2))
+        toVisit = [(root, 1)]
 
         while toVisit:
             node, h = toVisit.pop()
             if node.left: toVisit.append((node.left, h + 1))
             if node.right: toVisit.append((node.right, h + 1))
-            if not node.left and not node.right: maxH = max(h, maxH)
+            maxH = max(h, maxH)
 
         return maxH
 
     def maxDepthRec(self, root: Optional[TreeNode], h = 0) -> int:
         if not root: return 0
-        if (not root.left and not root.right): return 1
         return max(self.maxDepthRec(root.left), self.maxDepthRec(root.right)) + 1
+
+    def maxDepthBFS(self, root: Optional[TreeNode]) -> int:
+        if not root: return 0
+        maxH = 0
+        queue = collections.deque([(root, 1)])
+
+        while queue:
+            node, h = queue.popleft()
+            if node.left: queue.append((node.left, h + 1))
+            if node.right: queue.append((node.right, h + 1))
+            maxH = max(h, maxH)
+        return maxH
 
 
 from unittest import TestCase
@@ -43,6 +51,10 @@ class SolutionTests(unittest.TestCase):
     param_list = [
         ([3,9,20,null,null,15,7], 3),
         ([1,null,2], 2),
+        ([1], 1),
+        ([0], 1),
+        ([null], 0),
+        ([], 0),
     ]
 
     def testCases_maxDepth(self):
@@ -56,7 +68,7 @@ class SolutionTests(unittest.TestCase):
                 # assert
                 self.assertEqual(expected, result, (nums, root))
 
-    def testCases_maxDepth(self):
+    def testCases_maxDepthRec(self):
         for nums, expected in self.param_list:
             with self.subTest():
                 # arrange
@@ -64,6 +76,17 @@ class SolutionTests(unittest.TestCase):
                 root = buildTree(nums)
                 # act
                 result = s.maxDepthRec(root)
+                # assert
+                self.assertEqual(expected, result, (nums, root))
+
+    def testCases_maxDepthBFS(self):
+        for nums, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                s = Solution()
+                root = buildTree(nums)
+                # act
+                result = s.maxDepthBFS(root)
                 # assert
                 self.assertEqual(expected, result, (nums, root))
 
