@@ -215,14 +215,21 @@ https://leetcode.com/problems/basic-calculator/
 # System design
 
 https://www.karanpratapsingh.com/courses/system-design
+
 http://highscalability.com/blog/category/example
 https://geni.us/ddi-choice
 https://blog.pragmaticengineer.com/system-design-interview-an-insiders-guide-review/
+
+### [ByteByteGo](https://www.youtube.com/c/ByteByteGo)
 https://www.youtube.com/watch?v=5TRFpFBccQM
 https://www.youtube.com/watch?v=UF9Iqmg94tk
 https://www.youtube.com/watch?v=M4lR_Va97cQ
 https://www.youtube.com/watch?v=I6jB0nM9SKU
 https://www.youtube.com/watch?v=NtMvNh0WFVM
+
+### [Jordan has no life](https://www.youtube.com/channel/UCbvDQKzAJ5GwCjTrv4FWkxg/videos)
+
+algoexpert
 
 ## Distributed systems
 

@@ -29,7 +29,7 @@ class SolutionTests(unittest.TestCase):
         ([";:-!\0"], [";:-!\0"]),
     ]
 
-    def testCases_longestPalindrome(self):
+    def testCases(self):
         for s, expected in self.param_list():
             with self.subTest():
                 # arrange
