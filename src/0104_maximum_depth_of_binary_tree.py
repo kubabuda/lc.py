@@ -11,7 +11,22 @@ class TreeNode:
 
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        return 3
+        toVisit = []
+        maxH = 0
+
+        if root:
+            h = 1
+            maxH = h
+            if root.left: toVisit.append((root.left, h + 1))
+            if root.right: toVisit.append((root.right, h + 1))
+
+        while toVisit:
+            node, h = toVisit.pop()
+            if node.left: toVisit.append((node.left, h + 1))
+            if node.right: toVisit.append((node.right, h + 1))
+            if not node.left and not node.right: maxH = max(h, maxH)
+
+        return maxH
 
 
 from unittest import TestCase
