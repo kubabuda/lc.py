@@ -27,6 +27,11 @@ class Solution:
 
         return maxH
 
+    def maxDepthRec(self, root: Optional[TreeNode], h = 0) -> int:
+        if not root: return 0
+        if (not root.left and not root.right): return 1
+        return max(self.maxDepthRec(root.left), self.maxDepthRec(root.right)) + 1
+
 
 from unittest import TestCase
 import unittest
@@ -50,6 +55,18 @@ class SolutionTests(unittest.TestCase):
                 result = s.maxDepth(root)
                 # assert
                 self.assertEqual(expected, result, (nums, root))
+
+    def testCases_maxDepth(self):
+        for nums, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                s = Solution()
+                root = buildTree(nums)
+                # act
+                result = s.maxDepthRec(root)
+                # assert
+                self.assertEqual(expected, result, (nums, root))
+
 
 def buildTree(nums: List[int]) -> Optional[TreeNode]:
     queue = collections.deque()
