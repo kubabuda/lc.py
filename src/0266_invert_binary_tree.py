@@ -12,10 +12,12 @@ class TreeNode:
 
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        if not p and not q: return True
-        if not p or not q or p.val != q.val: return False
-        return self.invertTree(p.left, q.left) and self.invertTree(p.right, q.right)
-        
+        if root:
+            root.left, root.right = root.right, root.left
+            if root.left: self.invertTree(root.left)
+            if root.right: self.invertTree(root.right)
+        return root
+
 
 from unittest import TestCase
 import unittest
@@ -33,18 +35,18 @@ class SolutionTests(unittest.TestCase):
             with self.subTest():
                 # arrange
                 s = Solution()
-                root = buildTree(numsp), buildTree(numsq)
+                root = buildTree(nums)
                 # act
                 result = s.invertTree(root)
                 # assert
-                resultnums = treeToListDFS(result)
+                resultnums = treeToListBFS(result)
                 self.assertEqual(expected, resultnums, (nums, root))
 
 
-def buildTree(numsDFS: List[int]) -> Optional[TreeNode]:
+def buildTree(numsBFS: List[int]) -> Optional[TreeNode]:
     queue = collections.deque()
     result = None
-    for i, val in enumerate(numsDFS):
+    for i, val in enumerate(numsBFS):
         node = None
         if val != None:
             node = TreeNode(val)
@@ -60,12 +62,12 @@ def buildTree(numsDFS: List[int]) -> Optional[TreeNode]:
     return result
 
 
-def treeToListDFS(root: Optional[TreeNode]) -> List[int]:
+def treeToListBFS(root: Optional[TreeNode]) -> List[int]:
     result = []
     if not root: return result
-    toVisit = [root]
+    toVisit = queue = collections.deque([root])
     while toVisit:
-        n = toVisit.pop()
+        n = toVisit.popleft()
         result.append(n.val)
         if n.left: toVisit.append(n.left)
         if n.right: toVisit.append(n.right)
