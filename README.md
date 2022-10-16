@@ -48,6 +48,7 @@ Binary
 
 Dynamic Programming
 
+(- Longest Palindromic Substring https://leetcode.com/problems/longest-palindromic-substring [https://zkf85.github.io/2019/03/26/leetcode-005-longest-palindrome])
 - Climbing Stairs - https://leetcode.com/problems/climbing-stairs/
 - Coin Change - https://leetcode.com/problems/coin-change/
 - Longest Increasing Subsequence - https://leetcode.com/problems/longest-increasing-subsequence/
@@ -188,6 +189,9 @@ https://designgurus.org/course/grokking-the-coding-interview
 19) Palindromic Subsequence
 20) Longest Common Substring
 
+# Dynamic Programming
+
+https://www.youtube.com/watch?v=YBSt1jYwVfU
 
 # Links
 
