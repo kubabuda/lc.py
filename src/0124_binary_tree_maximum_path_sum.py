@@ -15,7 +15,7 @@ class Solution:
 
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         minheap = []
-        
+
         def maxPathSum(root) -> int:
             possible = [-root.val] # flip sign to use minheap
 
@@ -28,9 +28,10 @@ class Solution:
             if root.left and root.right:
                 heapq.heappush(minheap, (r + l - root.val))
 
-            for p in possible: heapq.heappush(minheap, p)
+            p = min(possible)
+            heapq.heappush(minheap, p)
             
-            return min(possible)
+            return p
     
         maxPathSum(root)
 
@@ -45,9 +46,9 @@ null = None
 class SolutionTests(unittest.TestCase):
     
     param_list = [
-        # ([1,2,3], 6),
-        # ([-10,9,20,null,null,15,7], 42),
-        # ([1,-2,-3,1,3,-2,null,-1], 3),
+        ([1,2,3], 6),
+        ([-10,9,20,null,null,15,7], 42),
+        ([1,-2,-3,1,3,-2,null,-1], 3),
         ([5,4,8,11,null,13,4,7,2,null,null,null,1], 48),
     ]
 
