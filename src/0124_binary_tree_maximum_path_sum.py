@@ -17,6 +17,7 @@ class Solution:
         minheap = []
 
         def maxSubpathSum(root) -> int:
+            """O(n) space"""
             possible = [-root.val] # flip sign to use minheap
 
             if root.left:
@@ -38,6 +39,34 @@ class Solution:
         maxSubpathSum(root)
 
         return 0 - minheap[0] # flip sign back
+
+    def maxPathSum1(self, root: Optional[TreeNode]) -> int:
+        """O(1) space"""
+        maxSum = root.val
+
+        def maxSubpathSum(root) -> int:
+            possible = [root.val]
+            nonlocal maxSum
+
+            if root.left:
+                l = maxSubpathSum(root.left)
+                possible.append(l + root.val)
+            if root.right: 
+                r = maxSubpathSum(root.right)
+                possible.append(r + root.val)
+            p = max(possible)
+            maxSum = max(p, maxSum)
+            
+            if root.left and root.right:
+                detechedVal = r + l + root.val
+                if detechedVal > p:
+                    maxSum = max(detechedVal, maxSum)
+            
+            return p
+    
+        maxSubpathSum(root)
+        return maxSum
+
 
 
 from unittest import TestCase
@@ -62,6 +91,17 @@ class SolutionTests(unittest.TestCase):
                 root = buildTree(nums)
                 # act
                 result = s.maxPathSum(root)
+                # assert
+                self.assertEqual(expected, result, (nums, root))
+
+    def testCases_maxPathSum1(self):
+        for nums, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                s = Solution()
+                root = buildTree(nums)
+                # act
+                result = s.maxPathSum1(root)
                 # assert
                 self.assertEqual(expected, result, (nums, root))
 
