@@ -16,24 +16,26 @@ class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         minheap = []
 
-        def maxPathSum(root) -> int:
+        def maxSubpathSum(root) -> int:
             possible = [-root.val] # flip sign to use minheap
 
             if root.left:
-                l = maxPathSum(root.left)
+                l = maxSubpathSum(root.left)
                 possible.append(l - root.val)
             if root.right: 
-                r = maxPathSum(root.right)
+                r = maxSubpathSum(root.right)
                 possible.append(r - root.val)
-            if root.left and root.right:
-                heapq.heappush(minheap, (r + l - root.val))
-
             p = min(possible)
             heapq.heappush(minheap, p)
             
+            if root.left and root.right:
+                detechedVal = r + l - root.val
+                if detechedVal < p:
+                    heapq.heappush(minheap, detechedVal)
+            
             return p
     
-        maxPathSum(root)
+        maxSubpathSum(root)
 
         return 0 - minheap[0] # flip sign back
 
