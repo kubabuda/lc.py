@@ -28,6 +28,25 @@ class Solution:
         return result
 
 
+    def levelOrder2(self, root: Optional[TreeNode]) -> List[List[int]]:
+        result = []
+        if not root: return result
+        toVisit = collections.deque([root])
+        
+        while toVisit:
+            lvl_diam = len(toVisit)
+            lvl = []
+            for i in range(lvl_diam):
+                node = toVisit.popleft()
+                if node:
+                    lvl.append(node.val)
+                    if node.left: toVisit.append(node.left)
+                    if node.right: toVisit.append(node.right)
+            result.append(lvl)
+
+        return result
+
+
 from unittest import TestCase
 import unittest
 import collections
@@ -50,6 +69,17 @@ class SolutionTests(unittest.TestCase):
                 root = buildTree(nums)
                 # act
                 result = s.levelOrder(root)
+                # assert
+                self.assertEqual(expected, result, (nums, root))
+
+    def testCases_levelOrder2(self):
+        for nums, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                s = Solution()
+                root = buildTree(nums)
+                # act
+                result = s.levelOrder2(root)
                 # assert
                 self.assertEqual(expected, result, (nums, root))
 
