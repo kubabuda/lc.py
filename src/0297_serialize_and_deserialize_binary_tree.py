@@ -19,13 +19,13 @@ class Codec:
         while q:
             n = q.popleft()
             if n:
-                values.append(n.val)
+                values.append(str(n.val))
                 q.append(n.left)
                 q.append(n.right)
             else:
                 values.append("None")
         
-        return ";".join(str(i) for i in values)
+        return ";".join(values)
         
 
     def deserialize(self, data):
