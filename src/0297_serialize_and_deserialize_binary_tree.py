@@ -30,24 +30,21 @@ class Codec:
 
     def deserialize(self, data):
         values = [ int(v) if v != "None" else None for v in data.split(';')]
-        # if not values or not values[0] and values[0] != 0: return None
+        if not values or not values[0] and values[0] != 0: return None
         
-        root = None
-        q = collections.deque()
+        root = TreeNode(values[0])
+        q = collections.deque([root])
 
-        for i, v in enumerate(values):
+        for i, v in enumerate(values[1:]):
             curr = None
             if v != None: 
                 curr = TreeNode(v)
                 q.append(curr)
-            if not root:
-                root = curr
+            if not i & 1:
+                q[0].left = curr
             else:
-                if i & 1:
-                    q[0].left = curr
-                else:
-                    q[0].right = curr
-                    q.popleft()
+                q[0].right = curr
+                q.popleft()
 
         return root
 
