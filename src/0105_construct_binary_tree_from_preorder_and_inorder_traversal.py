@@ -22,6 +22,20 @@ class Solution:
 
         return root
 
+    def buildTree2(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        def DFSbuildTree(preStart, inStart, inEnd) -> Optional[TreeNode]:
+            if inStart > inEnd: return None
+            i = inorder.index(preorder[preStart])
+            print(f"\r### {preStart} {inStart} {inEnd} i={i} v={preorder[preStart]}")
+            root = TreeNode(preorder[preStart])
+            if i > inStart:
+                root.left = DFSbuildTree(preStart + 1, inStart, i)
+            if i < inEnd - 1:
+                root.right = DFSbuildTree(preStart + i + 1, inStart + i + 1, inEnd)
+
+            return root
+
+        return DFSbuildTree(0, 0, len(inorder))
 
 from unittest import TestCase
 import unittest
@@ -32,18 +46,19 @@ class SolutionTests(unittest.TestCase):
     
     param_list = [
         ([3,9,20,15,7], [9,3,15,20,7], [3,9,20,null,null,15,7]),
-        ([-1], [-1], [-1]),
+        # ([-1], [-1], [-1]),
+        # ([1,2], [1,2], [1,null,2]),
     ]
 
-    def testCases_buildTree(self):
-        def dfs_assertEqual(n1, n2):
-            if (n1 and not n2) or (not n1 and n2):
-                self.assertEqual(n1, n2, (n1, n2))
-            if n1 and n2:
-                self.assertEqual(n1.val, n2.val, (n1, n2))
-                if n1.left: dfs_assertEqual(n1.left, n2.left)
-                if n1.right: dfs_assertEqual(n1.right, n2.right)
+    def dfs_assertEqual(self, n1, n2):
+        if (n1 and not n2) or (not n1 and n2):
+            self.assertEqual(n1, n2, (n1, n2))
+        if n1 and n2:
+            self.assertEqual(n1.val, n2.val, (n1, n2))
+            if n1.left: self.dfs_assertEqual(n1.left, n2.left)
+            if n1.right: self.dfs_assertEqual(n1.right, n2.right)
 
+    def testCases_buildTree(self):
         for preorder, inorder, expected in self.param_list:
             with self.subTest():
                 # arrange
@@ -52,7 +67,20 @@ class SolutionTests(unittest.TestCase):
                 result = sol.buildTree(preorder, inorder)
                 # assert
                 expectedTree = buildTree(expected)
-                dfs_assertEqual(expectedTree, result)
+                self.dfs_assertEqual(expectedTree, result)
+
+    def testCases_buildTree2(self):
+        for preorder, inorder, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                sol = Solution()
+                # act
+                result = sol.buildTree2(preorder, inorder)
+                # assert
+                expectedTree = buildTree(expected)
+                print(result, expectedTree)
+                self.dfs_assertEqual(expectedTree, result)
+
 
 def buildTree(numsBFS: List[int]) -> Optional[TreeNode]:
     queue = collections.deque()
