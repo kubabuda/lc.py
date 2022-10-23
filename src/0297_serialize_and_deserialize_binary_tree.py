@@ -68,7 +68,7 @@ class Codec2:
     def deserialize(self, data):
         values = [ int(v) if v != "N" else None for v in data.split(';')]
 
-        def dfs(i):
+        def dfs(i: int) -> (Optional[TreeNode], int):
             val = values[i]
             i += 1
             node = None
