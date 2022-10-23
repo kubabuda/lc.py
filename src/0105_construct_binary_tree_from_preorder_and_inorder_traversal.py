@@ -24,15 +24,13 @@ class Solution:
 
     def buildTree2(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
         def DFSbuildTree(preStart, inStart, inEnd) -> Optional[TreeNode]:
-            if inStart > inEnd: return None
             i = inorder.index(preorder[preStart])
-            print(f"\r### {preStart} {inStart} {inEnd} i={i} v={preorder[preStart]}")
             root = TreeNode(preorder[preStart])
             if i > inStart:
                 root.left = DFSbuildTree(preStart + 1, inStart, i)
             if i < inEnd - 1:
-                root.right = DFSbuildTree(preStart + i + 1, inStart + i + 1, inEnd)
-
+                i_rel = i + 1 - inStart
+                root.right = DFSbuildTree(preStart + i_rel, inStart + i_rel, inEnd)
             return root
 
         return DFSbuildTree(0, 0, len(inorder))
@@ -46,8 +44,8 @@ class SolutionTests(unittest.TestCase):
     
     param_list = [
         ([3,9,20,15,7], [9,3,15,20,7], [3,9,20,null,null,15,7]),
-        # ([-1], [-1], [-1]),
-        # ([1,2], [1,2], [1,null,2]),
+        ([-1], [-1], [-1]),
+        ([1,2], [1,2], [1,null,2]),
     ]
 
     def dfs_assertEqual(self, n1, n2):
@@ -78,7 +76,6 @@ class SolutionTests(unittest.TestCase):
                 result = sol.buildTree2(preorder, inorder)
                 # assert
                 expectedTree = buildTree(expected)
-                print(result, expectedTree)
                 self.dfs_assertEqual(expectedTree, result)
 
 
