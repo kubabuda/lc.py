@@ -1,5 +1,6 @@
 from typing import *
 import collections
+from math import inf
 # 98. Validate Binary Search Tree
 # https://leetcode.com/problems/validate-binary-search-tree
 class TreeNode:
@@ -9,7 +10,6 @@ class TreeNode:
         self.right = right
     def __repr__(self):
         return f"TreeNode {self.val}{f' l:({self.left})' if self.left else ''}{f' r:({self.right})' if self.right else ''}"
-
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         def isValid_dfs(root):
@@ -33,6 +33,16 @@ class Solution:
 
         return result              
 
+    def isValidBST2(self, root: Optional[TreeNode]) -> bool:
+        def valid(node, left, right):
+            if not node:
+                return True
+            if not (left < node.val < right):
+                return False
+            return (valid(node.left, left, node.val) and valid(node.right, node.val, right))
+        
+        return valid(root, -inf, inf)
+
 
 from unittest import TestCase
 import unittest
@@ -45,6 +55,7 @@ class SolutionTests(unittest.TestCase):
         ([1], True),
         ([2,1,3], True),
         ([2,4,3], False),
+        # ([2,2,2], True),
     ]
 
     def testCases_isValidBST(self):
@@ -55,6 +66,17 @@ class SolutionTests(unittest.TestCase):
                 root = buildTree(preorder)
                 # act
                 result = sol.isValidBST(root)
+                # assert
+                self.assertEqual(expected, result, (root))
+
+    def testCases_isValidBST2(self):
+        for preorder, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                sol = Solution()
+                root = buildTree(preorder)
+                # act
+                result = sol.isValidBST2(root)
                 # assert
                 self.assertEqual(expected, result, (root))
 
