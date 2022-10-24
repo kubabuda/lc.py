@@ -14,20 +14,20 @@ class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         def isValid_dfs(root):
             valid = True
-            minval, maxval = [root.val], [root.val]
+            minval, maxval = root.val, root.val
             if root.left:
                 valid, minl, maxl = isValid_dfs(root.left)
                 if root.val <= maxl:
                     return False, False, False
-                minval.append(minl)
-                maxval.append(maxl)
+                minval = min(minl, minval)
+                maxval = max(maxl, maxval)
             if valid and root.right:
                 valid, minr, maxr = isValid_dfs(root.right)
                 if root.val >= minr:
                     return False, False, False
-                minval.append(minr)
-                maxval.append(maxr)
-            return valid, min(minval), max(maxval)
+                minval = min(minr, minval)
+                maxval = max(maxr, maxval)
+            return valid, minval, maxval
         
         result, _, _ = isValid_dfs(root)
 
