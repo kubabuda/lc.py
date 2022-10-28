@@ -13,20 +13,6 @@ class TreeNode:
         return f"TreeNode {self.val}{f' l:({self.left})' if self.left else ''}{f' r:({self.right})' if self.right else ''}"
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        minheap = []
-
-        def dfs(node):
-            if len(minheap) < k or minheap[0] < -node.val:
-                heapq.heappush(minheap, -node.val)
-            while len(minheap) > k:
-                heapq.heappop(minheap)
-            if node.left: dfs(node.left)
-            if node.right: dfs(node.right)
-        
-        dfs(root)
-        return -minheap[0]
-
-    def kthSmallest2(self, root: Optional[TreeNode], k: int) -> int:
         i = 1
 
         def dfs(node):
@@ -43,6 +29,32 @@ class Solution:
             return None
         
         return dfs(root)
+
+    def kthSmallest2(self, root: Optional[TreeNode], k: int) -> int:
+        def dfs(node, i)-> (int, int):
+            if not node: return None, i
+            lval, i = dfs(node.left, i)
+            if i == k and lval is not None: return lval, i
+            if i == k: return node.val, i
+            return dfs(node.right, i + 1)
+
+        result, i = dfs(root, 1)
+        return result
+
+
+    def kthSmallestMh(self, root: Optional[TreeNode], k: int) -> int:
+        minheap = []
+
+        def dfs(node):
+            if len(minheap) < k or minheap[0] < -node.val:
+                heapq.heappush(minheap, -node.val)
+            while len(minheap) > k:
+                heapq.heappop(minheap)
+            if node.left: dfs(node.left)
+            if node.right: dfs(node.right)
+        
+        dfs(root)
+        return -minheap[0]
 
 
 from unittest import TestCase
@@ -77,6 +89,17 @@ class SolutionTests(unittest.TestCase):
                 root = buildTree(nums)
                 # act
                 result = sol.kthSmallest2(root, k)
+                # assert
+                self.assertEqual(expected, result, (root, k))
+
+    def testCases_kthSmallestMh(self):
+        for nums, k, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                sol = Solution()
+                root = buildTree(nums)
+                # act
+                result = sol.kthSmallestMh(root, k)
                 # assert
                 self.assertEqual(expected, result, (root, k))
 
