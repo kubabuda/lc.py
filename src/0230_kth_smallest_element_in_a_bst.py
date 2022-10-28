@@ -27,15 +27,16 @@ class Solution:
         return -minheap[0]
 
     def kthSmallest2(self, root: Optional[TreeNode], k: int) -> int:
-        curr = [1]
+        i = 1
 
         def dfs(node):
+            nonlocal i
             if not node: return None
             if node.left: 
                 l = dfs(node.left)
                 if l is not None: return l
-            if curr[0] == k: return node.val
-            curr[0] += 1
+            if i == k: return node.val
+            i += 1
             if node.right:
                 r = dfs(node.right)
                 if r is not None: return r
