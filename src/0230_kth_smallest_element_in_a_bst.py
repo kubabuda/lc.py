@@ -26,6 +26,23 @@ class Solution:
         dfs(root)
         return -minheap[0]
 
+    def kthSmallest2(self, root: Optional[TreeNode], k: int) -> int:
+        curr = [1]
+
+        def dfs(node):
+            if not node: return None
+            if node.left: 
+                l = dfs(node.left)
+                if l is not None: return l
+            if curr[0] == k: return node.val
+            curr[0] += 1
+            if node.right:
+                r = dfs(node.right)
+                if r is not None: return r
+            return None
+        
+        return dfs(root)
+
 
 from unittest import TestCase
 import unittest
@@ -48,6 +65,17 @@ class SolutionTests(unittest.TestCase):
                 root = buildTree(nums)
                 # act
                 result = sol.kthSmallest(root, k)
+                # assert
+                self.assertEqual(expected, result, (root, k))
+
+    def testCases_kthSmallest2(self):
+        for nums, k, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                sol = Solution()
+                root = buildTree(nums)
+                # act
+                result = sol.kthSmallest2(root, k)
                 # assert
                 self.assertEqual(expected, result, (root, k))
 
