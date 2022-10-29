@@ -56,6 +56,38 @@ class Solution:
         dfs(root)
         return -minheap[0]
 
+    def kthSmallestIter(self, root: Optional[TreeNode], k: int) -> int:
+        stack = [root]
+        i = 1
+        visited = set()
+
+        while stack:
+            while stack[-1].left and stack[-1].left.val not in visited:
+                stack.append(stack[-1].left)
+            node = stack.pop()
+            visited.add(node.val)
+            if len(visited) == k:
+                return node.val
+            if node.right:
+                stack.append(node.right)
+
+    def kthSmallestIter2(self, root: Optional[TreeNode], k: int) -> int:
+        stack = []
+        i = 0
+        curr = root
+
+        while stack or curr:
+            while curr: 
+                stack.append(curr)
+                curr = curr.left
+
+            curr = stack.pop()
+            i += 1
+            if i == k:
+                return curr.val
+
+            curr = curr.right
+
 
 from unittest import TestCase
 import unittest
@@ -100,6 +132,28 @@ class SolutionTests(unittest.TestCase):
                 root = buildTree(nums)
                 # act
                 result = sol.kthSmallestMh(root, k)
+                # assert
+                self.assertEqual(expected, result, (root, k))
+
+    def testCases_kthSmallestIter(self):
+        for nums, k, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                sol = Solution()
+                root = buildTree(nums)
+                # act
+                result = sol.kthSmallestIter(root, k)
+                # assert
+                self.assertEqual(expected, result, (root, k))
+
+    def testCases_kthSmallestIter2(self):
+        for nums, k, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                sol = Solution()
+                root = buildTree(nums)
+                # act
+                result = sol.kthSmallestIter2(root, k)
                 # assert
                 self.assertEqual(expected, result, (root, k))
 
