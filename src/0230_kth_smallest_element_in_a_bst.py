@@ -56,7 +56,6 @@ class Solution:
         dfs(root)
         return -minheap[0]
 
-
     def kthSmallestIter(self, root: Optional[TreeNode], k: int) -> int:
         stack = [root]
         i = 1
@@ -71,6 +70,23 @@ class Solution:
                 return node.val
             if node.right:
                 stack.append(node.right)
+
+    def kthSmallestIter2(self, root: Optional[TreeNode], k: int) -> int:
+        stack = []
+        i = 0
+        curr = root
+
+        while stack or curr:
+            while curr: 
+                stack.append(curr)
+                curr = curr.left
+
+            curr = stack.pop()
+            i += 1
+            if i == k:
+                return curr.val
+
+            curr = curr.right
 
 
 from unittest import TestCase
@@ -127,6 +143,17 @@ class SolutionTests(unittest.TestCase):
                 root = buildTree(nums)
                 # act
                 result = sol.kthSmallestIter(root, k)
+                # assert
+                self.assertEqual(expected, result, (root, k))
+
+    def testCases_kthSmallestIter2(self):
+        for nums, k, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                sol = Solution()
+                root = buildTree(nums)
+                # act
+                result = sol.kthSmallestIter2(root, k)
                 # assert
                 self.assertEqual(expected, result, (root, k))
 
