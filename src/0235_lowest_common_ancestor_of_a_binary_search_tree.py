@@ -14,9 +14,16 @@ class TreeNode:
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        l = p if p.val < q.val else q
+        r = q if p.val < q.val else p
 
-        i = 1
-   
+        if l.val <= root.val <= r.val: 
+            return root
+        elif r.val <= root.val:
+            return self.lowestCommonAncestor(root.left, l, r)
+        else: # l.val > root.val:
+            return self.lowestCommonAncestor(root.right, l, r)
+
 
 from unittest import TestCase
 import unittest
@@ -27,6 +34,7 @@ class SolutionTests(unittest.TestCase):
     
     param_list = [
         ([6,2,8,0,4,7,9,null,null,3,5], 2, 8, 6),
+        ([6,2,8,0,4,7,9,null,null,3,5], 2, 4, 2)
     ]
 
     def testCases_lowestCommonAncestor(self):
@@ -39,9 +47,9 @@ class SolutionTests(unittest.TestCase):
                 print(p, pnode)
                 print(q, qnode)
                 # act
-                result = sol.lowestCommonAncestor(root, p, q)
+                result = sol.lowestCommonAncestor(root, pnode, qnode)
                 # assert
-                self.assertEqual(expected, result, (root, p, q))
+                self.assertEqual(expected, result.val, (root, p, q))
 
 
 def buildTree(numsBFS: List[int]) -> Optional[TreeNode]:
