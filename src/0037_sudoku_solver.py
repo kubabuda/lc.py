@@ -5,7 +5,11 @@ from typing import *
 
 class Solution:
     def solveSudoku(self, board: List[List[int]]) -> None:
-        """"Computerphile: backtrack"""
+        """Computerphile: backtrack
+        O(9**m) time
+        O(m)    space
+        m: empty places in puzzle, max(m) = n**2 where n = board edge len = 9
+        """
         def isPossible(row, col, val) -> bool:
             for i in range(9):
                 if board[row][i] == val: return False
