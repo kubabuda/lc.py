@@ -1,3 +1,4 @@
+from operator import truediv
 from typing import *
 # 37. Sudoku Solver
 # https://leetcode.com/problems/sudoku_solver
@@ -18,22 +19,19 @@ class Solution:
         
         values = ['1','2','3','4','5','6','7','8','9']
         empty = '.'
-        solved = False
-
+        
         def solve(board):
-            nonlocal solved
             for row in range(9):
                 for col in range(9):
                     if board[row][col] == empty:
-                        if solved: break
                         for value in values:
-                            if not solved and isPossible(row, col, value):
+                            if isPossible(row, col, value):
                                 board[row][col] = value
-                                solve(board)
-                                if not solved: 
-                                    board[row][col] = empty # backtrack
-                        return
-            solved = True
+                                if solve(board):
+                                    return True
+                                board[row][col] = empty # backtrack
+                        return False
+            return True
 
         solve(board)
 
