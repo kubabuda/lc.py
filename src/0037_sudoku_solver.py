@@ -4,7 +4,7 @@ from typing import *
 
 class Solution:
     def solveSudoku(self, board: List[List[int]]) -> None:
-        """"Computerphile algo with backtrack"""
+        """"Computerphile: backtrack"""
         def isPossible(row, col, val) -> bool:
             for i in range(9):
                 if board[row][i] == val: return False
@@ -34,6 +34,45 @@ class Solution:
                                     board[row][col] = empty # backtrack
                         return
             solved = True
+
+        solve(board)
+
+    def solveSudoku2(self, board: List[List[int]]) -> None:
+        """"TechWithTim: backtrack"""
+        def isPossible(row, col, val) -> bool:
+            for i in range(9):
+                if board[row][i] == val: return False
+                if board[i][col] == val: return False
+            grrow, grcol = (row // 3) * 3, (col // 3) * 3
+            for i in range(3):
+                for j in range(3):
+                    if board[grrow+i][grcol+j] == val: 
+                        return False
+            return True
+
+        empty = '.'
+        
+        def findEmpty(board):
+            for row in range(9):
+                for col in range(9):
+                    if board[row][col] == empty:
+                        return (row, col)
+            return None
+
+        values = ['1','2','3','4','5','6','7','8','9']
+
+        def solve(board):
+            next = findEmpty(board)
+            if not next:
+                return True
+            row, col = next
+            for value in values:
+                if isPossible(row, col, value):
+                    board[row][col] = value
+                    if solve(board): 
+                        return True
+                    board[row][col] = empty # backtrack
+            return False
 
         solve(board)
 
@@ -69,8 +108,20 @@ class SolutionTests(unittest.TestCase):
             with self.subTest():
                 # arrange
                 sol = Solution()
+                board = [[i for i in row] for row in board]
                 # act
                 sol.solveSudoku(board)
+                # assert
+                self.assertEqual(expected, board)
+
+    def testCases_solveSudoku2(self):
+        for board, expected in self.param_list():
+            with self.subTest():
+                # arrange
+                sol = Solution()
+                board = [[i for i in row] for row in board]
+                # act
+                sol.solveSudoku2(board)
                 # assert
                 self.assertEqual(expected, board)
 
