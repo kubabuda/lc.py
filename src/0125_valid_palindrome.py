@@ -34,7 +34,7 @@ import unittest
 
 class SolutionTests(unittest.TestCase): 
     
-    param_list = lambda self: [
+    param_list = lambda _: [
         ("abba", True),
         ("aba", True),
         ("A man, a plan, a canal: Panama", True),

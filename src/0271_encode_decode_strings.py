@@ -24,7 +24,7 @@ import unittest
 
 class SolutionTests(unittest.TestCase): 
     
-    param_list = lambda self: [
+    param_list = lambda _: [
         (["abc", "abd", "x,y,z"], ["abc", "abd", "x,y,z"]),
         ([";:-!\0"], [";:-!\0"]),
     ]

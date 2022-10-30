@@ -19,12 +19,12 @@ class SolutionTests(unittest.TestCase):
         # assert
         self.assertEqual(2, result)
     
-    param_list = [
+    param_list = lambda _:[
         ([], []),
     ]
 
     def testCases_method(self):
-        for nums, expected in self.param_list:
+        for nums, expected in self.param_list():
             with self.subTest():
                 # arrange
                 s = Solution()

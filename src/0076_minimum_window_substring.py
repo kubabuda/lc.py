@@ -91,7 +91,7 @@ import unittest
 
 class SolutionTests(unittest.TestCase): 
     
-    param_list = lambda self: [
+    param_list = lambda _: [
         ("ADOBECODEBANC", "ABC", "BANC"),
         ("a", "a", "a"),
         ("a", "aa", ""),

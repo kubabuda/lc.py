@@ -39,7 +39,7 @@ import unittest
 
 class SolutionTests(unittest.TestCase): 
     
-    param_list = lambda self: [
+    param_list = lambda _: [
         ([], []),
         ([""], [[""]]),
         (["a"], [["a"]]),

@@ -26,7 +26,7 @@ import unittest
 
 class SolutionTests(unittest.TestCase): 
     
-    param_list = lambda self: [
+    param_list = lambda _: [
         ("abba", 6),
         ("aba", 4),
         ("abc", 3),

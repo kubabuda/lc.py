@@ -16,7 +16,7 @@ import unittest
 
 class SolutionTests(unittest.TestCase): 
     
-    param_list = lambda self: [
+    param_list = lambda _: [
         ("anagram", "nagaram", True),
         ("rat", "car", False),
         ("a", "ab", False),

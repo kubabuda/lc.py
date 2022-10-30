@@ -33,7 +33,7 @@ import unittest
 
 class SolutionTests(unittest.TestCase): 
     
-    param_list = lambda self: [
+    param_list = lambda _: [
         ([[1]], [1]),
         ([[1],[2],[3],[4]], [1,2,3,4]),
         ([[1,2,3,4]], [1,2,3,4]),
