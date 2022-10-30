@@ -134,7 +134,7 @@ Tree
 - ✔️ Validate Binary Search Tree - https://leetcode.com/problems/validate-binary-search-tree/
 - ✔️ Kth Smallest Element in a BST - https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 - ✔️ Lowest Common Ancestor of BST - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
-- Implement Trie (Prefix Tree) - https://leetcode.com/problems/implement-trie-prefix-tree/
+- ✔️ Implement Trie (Prefix Tree) - https://leetcode.com/problems/implement-trie-prefix-tree/
 - Add and Search Word - https://leetcode.com/problems/add-and-search-word-data-structure-design/
 - Word Search II - https://leetcode.com/problems/word-search-ii/
 
