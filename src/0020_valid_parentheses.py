@@ -20,7 +20,7 @@ class Solution:
         return not opened
 
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

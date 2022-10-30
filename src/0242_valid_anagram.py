@@ -11,7 +11,7 @@ class Solution:
         return True
 
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

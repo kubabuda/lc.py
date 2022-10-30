@@ -13,7 +13,7 @@ class Solution:
         return [-1, -1]
 
 
-from unittest import TestCase
+
 import unittest
 
 class TestSum(unittest.TestCase): 

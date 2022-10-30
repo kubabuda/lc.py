@@ -29,7 +29,7 @@ class Solution:
         return False
 
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

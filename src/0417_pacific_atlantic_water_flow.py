@@ -83,7 +83,7 @@ class Solution:
                 result.append([xy[0], xy[1]])
         return result
 
-from unittest import TestCase
+
 import unittest
 class SolutionTests(unittest.TestCase): 
 

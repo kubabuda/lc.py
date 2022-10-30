@@ -51,7 +51,7 @@ class Solution:
                     matrix[0][col] = 0
 
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

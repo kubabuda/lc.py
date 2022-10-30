@@ -57,7 +57,7 @@ class Solution:
                     result -= union(i, j)
         return result
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

@@ -32,7 +32,7 @@ class Solution:
         return result
 
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase):

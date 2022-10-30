@@ -28,7 +28,7 @@ class Solution:
 
         return [[ni for ni in sol] for sol in solutions] # convert unique solutions set to list of lists
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase):     

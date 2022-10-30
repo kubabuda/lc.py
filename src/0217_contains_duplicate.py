@@ -10,7 +10,7 @@ class Solution:
             numsSet.add(i)
         return False
 
-from unittest import TestCase
+
 import unittest
 
 class Test(unittest.TestCase): 

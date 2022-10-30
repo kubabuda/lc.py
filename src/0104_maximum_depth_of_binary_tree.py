@@ -41,7 +41,7 @@ class Solution:
         return maxH
 
 
-from unittest import TestCase
+
 import unittest
 import collections
 

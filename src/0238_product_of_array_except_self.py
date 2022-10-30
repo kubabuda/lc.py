@@ -17,7 +17,7 @@ class Solution:
         return result
 
 
-from unittest import TestCase
+
 import unittest
 
 class Test(unittest.TestCase): 

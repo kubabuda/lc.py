@@ -1,6 +1,6 @@
 from typing import *
-# 36. Valid Sudoku
-# https://leetcode.com/problems/valid-sudoku//
+# 37. Sudoku Solver
+# https://leetcode.com/problems/sudoku_solver
 
 class Solution:
     def isValidSudoku(self, board: List[List[int]]) -> bool:

@@ -68,7 +68,7 @@ class Solution:
         return dist_sum
 
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

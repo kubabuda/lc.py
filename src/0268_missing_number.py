@@ -7,7 +7,7 @@ class Solution:
         exp_sum = int(len(nums) * orig_len / 2)
         return exp_sum - act_sum
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

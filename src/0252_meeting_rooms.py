@@ -14,7 +14,7 @@ class Solution:
                 prev_end = end
         return True
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

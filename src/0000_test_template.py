@@ -6,7 +6,7 @@ class Solution:
     def method(self, nums):
         return []
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

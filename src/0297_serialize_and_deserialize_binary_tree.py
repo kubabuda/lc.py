@@ -81,7 +81,7 @@ class Codec2:
         root, _ = dfs(0)
         return root
 
-from unittest import TestCase
+
 import unittest
 import collections
 

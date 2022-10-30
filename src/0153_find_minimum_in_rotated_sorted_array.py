@@ -16,7 +16,7 @@ class Solution:
         return nums[begin]
 
 
-from unittest import TestCase
+
 import unittest
 
 class Test(unittest.TestCase): 

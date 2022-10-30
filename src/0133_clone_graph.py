@@ -41,7 +41,7 @@ class Solution:
             cloned_node.neighbors.append(cloned_ne)
         return cloned_node
 
-from unittest import TestCase
+
 import unittest
 class SolutionTests(unittest.TestCase): 
     def testCases(self):

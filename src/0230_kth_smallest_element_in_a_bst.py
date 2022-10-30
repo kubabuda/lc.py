@@ -89,7 +89,7 @@ class Solution:
             curr = curr.right
 
 
-from unittest import TestCase
+
 import unittest
 import collections
 

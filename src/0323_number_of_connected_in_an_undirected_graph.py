@@ -51,7 +51,7 @@ class Solution:
             result -= union(n1, n2)
         return result
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

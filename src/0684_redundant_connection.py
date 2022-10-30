@@ -57,7 +57,7 @@ class Solution:
             if not union(n1, n2): return [n1, n2]
 
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

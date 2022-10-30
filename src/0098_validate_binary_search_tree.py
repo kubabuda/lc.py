@@ -44,7 +44,7 @@ class Solution:
         return valid(root, -inf, inf)
 
 
-from unittest import TestCase
+
 import unittest
 import collections
 

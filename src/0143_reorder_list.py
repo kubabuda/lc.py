@@ -56,7 +56,7 @@ class Solution:
                 tail = tail.next
 
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

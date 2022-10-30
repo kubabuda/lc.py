@@ -19,7 +19,7 @@ class Solution:
         return root
 
 
-from unittest import TestCase
+
 import unittest
 import collections
 

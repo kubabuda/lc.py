@@ -23,7 +23,7 @@ class Solution:
         return seekRoot and (self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot))
 
 
-from unittest import TestCase
+
 import unittest
 import collections
 

@@ -25,7 +25,7 @@ class Solution:
         if len(visited) < n: return -1
         return t
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

@@ -35,7 +35,7 @@ class Solution:
 
         return DFSbuildTree(0, 0, len(inorder))
 
-from unittest import TestCase
+
 import unittest
 import collections
 

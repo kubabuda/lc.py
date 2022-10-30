@@ -42,7 +42,7 @@ class Solution:
             result |= mask
         return result
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

@@ -20,7 +20,7 @@ class Solution:
 
         return prev
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

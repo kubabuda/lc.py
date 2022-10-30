@@ -24,7 +24,7 @@ class Solution:
 
         return maxProfit
         
-from unittest import TestCase
+
 import unittest
 
 class Test(unittest.TestCase): 

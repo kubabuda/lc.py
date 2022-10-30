@@ -114,7 +114,7 @@ class Solution:
         return lists[0]
 
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

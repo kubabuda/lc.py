@@ -64,7 +64,7 @@ class Solution:
 
         return solutionList
         
-from unittest import TestCase
+
 import unittest
 class SolutionTests(unittest.TestCase): 
     

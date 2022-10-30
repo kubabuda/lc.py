@@ -31,7 +31,7 @@ class Solution:
         return maxL
 
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

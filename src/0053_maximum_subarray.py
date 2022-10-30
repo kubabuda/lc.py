@@ -10,7 +10,7 @@ class Solution:
         return maxSum
 
 
-from unittest import TestCase
+
 import unittest
 
 class Test(unittest.TestCase): 

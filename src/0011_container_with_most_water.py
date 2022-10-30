@@ -43,7 +43,7 @@ class Solution:
                 maxArea = max(area, maxArea)
         return maxArea
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 

@@ -1,7 +1,6 @@
 from typing import *
 # 19. Remove Nth Node From End of List
 # https://leetcode.com/problems/remove-nth-node-from-end-of-list
-import heapq
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -25,7 +24,7 @@ class Solution:
         return head
 
 
-from unittest import TestCase
+
 import unittest
 
 class SolutionTests(unittest.TestCase): 
