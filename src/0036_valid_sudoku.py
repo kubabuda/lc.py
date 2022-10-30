@@ -19,7 +19,7 @@ class Solution:
                 if val in cols[col]: return False
                 cols[col].add(val)
 
-                brow, bcol = int(row/3), int(col/3)             
+                brow, bcol = row // 3, col // 3             
                 if val in boxes[brow][bcol]:
                     return False
                 boxes[brow][bcol].add(val)
