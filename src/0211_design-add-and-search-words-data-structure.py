@@ -18,6 +18,7 @@ class WordDictionary:
 
     def __init__(self):
         self.root = {}
+        self.maxL = 0
 
     def addWord(self, word: str) -> None:
         node = self.root
@@ -25,8 +26,11 @@ class WordDictionary:
             if c not in node: node[c] = {}
             node = node[c]
         node[self.EOL] = None
+        self.maxL = max(len(word), self.maxL)
 
     def search(self, word: str) -> bool:
+        if len(word) > self.maxL: return False
+
         def search(word: str, node) -> bool:
             if not word: 
                 return node and self.EOL in node
