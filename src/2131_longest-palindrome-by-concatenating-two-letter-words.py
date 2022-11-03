@@ -3,7 +3,27 @@ from typing import *
 # https://leetcode.com/problems/longest-palindrome-by-concatenating-two-letter-words/
 
 class Solution:
+
     def longestPalindrome(self, words: List[str]) -> int:
+        cnt = Counter(words)
+        midpt = False
+        result = 0
+        
+        for word, wc in cnt.items():
+            rev = word[::-1]
+            if word == rev:
+                if wc >= 2:
+                    result += 2 * (wc - wc % 2)
+                if not midpt and wc % 2:
+                    midpt = True
+                    result += 2
+            elif rev in cnt and cnt[rev] > 0:
+                result += 4 * min(wc, cnt[rev])
+                cnt[rev] = 0
+                cnt[word] = 0
+        return result
+
+    def longestPalindrome2(self, words: List[str]) -> int:
         cnt = Counter(words)
         midpt = False
         result = 0
@@ -37,13 +57,23 @@ class SolutionTests(unittest.TestCase):
         (['bb', 'bb'], 4),
     ]
 
-    def testCases_method(self):
+    def testCases_longestPalindrome(self):
         for nums, expected in self.param_list():
             with self.subTest():
                 # arrange
                 s = Solution()
                 # act
                 result = s.longestPalindrome(nums)
+                # assert
+                self.assertEqual(expected, result, (nums))
+
+    def testCases_longestPalindrome2(self):
+        for nums, expected in self.param_list():
+            with self.subTest():
+                # arrange
+                s = Solution()
+                # act
+                result = s.longestPalindrome2(nums)
                 # assert
                 self.assertEqual(expected, result, (nums))
 
