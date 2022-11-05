@@ -3,16 +3,9 @@ from typing import *
 import collections
 # 212. Word Search II
 # https://leetcode.com/problems/design-add-and-search-words-data-structure/
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-    def __repr__(self):
-        return f"TreeNode {self.val}{f' l:({self.left})' if self.left else ''}{f' r:({self.right})' if self.right else ''}"
 
 class Solution:
-    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+    def findWords1(self, board: List[List[str]], words: List[str]) -> List[str]:
         letters = {}
         for i in range(len(board)):
             for j in range(len(board[0])):
@@ -42,6 +35,50 @@ class Solution:
         return [w for w in words if isinboard(w)] 
 
 
+    def findWords2(self, board: List[List[str]], words: List[str]) -> List[str]:
+        root = {}
+        EOL = '\0'
+        
+        def addWord(word) -> None:
+            node = root
+            for c in word:
+                if not c in node: node[c] = {}
+                node = node[c]
+            node[EOL] = None
+
+        for word in words: addWord(word)
+        result = set()
+
+        def dfs(xy, node, word='', visited=None):
+            if not visited: visited = set()
+            x,y = xy
+            c = board[x][y]
+            if not c in node: return
+            node = node[c]
+            
+            word = f'{word}{c}'
+            visited.add(xy)
+            if EOL in node:
+                result.add(word)
+
+            near = []
+            if x-1 >= 0:            near.append((x-1,y))
+            if x+1 < len(board):    near.append((x+1,y))
+            if y-1 >= 0:            near.append((x, y-1))
+            if y+1 < len(board[0]): near.append((x, y+1))
+            next_xy = [xy for xy in near if xy not in visited]
+    
+            for ne_xy in next_xy:
+                dfs(ne_xy, node, word, visited)
+    
+            visited.remove(xy)
+
+        for x in range(len(board)):
+            for y in range(len(board[0])):
+                dfs((x,y), root)
+        
+        return [w for w in result]
+
 
 import unittest
 import collections
@@ -66,34 +103,25 @@ class SolutionTests(unittest.TestCase):
         ),
     ]
 
-    def testCases_rangeSumBST(self):
+    def testCases_findWords1(self):
         for board, words, expected in self.param_list:
             with self.subTest():
                 # arrange
                 sut = Solution()
                 # act
-                result = sut.findWords(board, words)
+                result = sut.findWords1(board, words)
                 # assert
                 self.assertEqual(sorted(expected), sorted(result), (board, words))
 
-
-def buildTree(numsBFS: List[int]) -> Optional[TreeNode]:
-    queue = collections.deque()
-    result = None
-    for i, val in enumerate(numsBFS):
-        node = None
-        if val != None:
-            node = TreeNode(val)
-            queue.append(node)
-        if not result:
-            result = node
-        else:
-            if i & 1:
-                queue[0].left = node
-            else:
-                queue[0].right = node
-                queue.popleft()
-    return result
+    def testCases_findWords2(self):
+        for board, words, expected in self.param_list:
+            with self.subTest():
+                # arrange
+                sut = Solution()
+                # act
+                result = sut.findWords2(board, words)
+                # assert
+                self.assertEqual(sorted(expected), sorted(result), (board, words))
 
 if __name__ == '__main__':
     unittest.main()
