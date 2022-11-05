@@ -92,33 +92,7 @@ class Solution:
         return list(result)
 
 
-"""
- def addWord(self, word):
-        cur = self
-        for c in word:
-            if c not in cur.children:
-                cur.children[c] = TrieNode()
-            cur = cur.children[c]
-        cur.isWord = True
-        
-    def pruneWord(self, word) -> None:
-        cur: TrieNode = self
-        nodeAndChildKey: list[tuple[TrieNode, str]] = []
-        for char in word:
-            nodeAndChildKey.append((cur, char))
-            cur = cur.children[char]
-
-        for parentNode, childKey in reversed(nodeAndChildKey):
-            targetNode = parentNode.children[childKey]
-            if len(targetNode.children) == 0:
-                del parentNode.children[childKey]
-            else:
-                return
-"""
-
 import unittest
-import collections
-
 null, true, false = None, True, False
 
 class SolutionTests(unittest.TestCase):
