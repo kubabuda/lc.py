@@ -1,55 +1,9 @@
 from os import remove
 from typing import *
-import collections
 # 212. Word Search II
 # https://leetcode.com/problems/design-add-and-search-words-data-structure/
 
 class Solution:
-    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        root = {}
-        EOL = '\0'
-        
-        def addWord(word) -> None:
-            node = root
-            for c in word:
-                if not c in node: node[c] = {}
-                node = node[c]
-            node[EOL] = None
-
-        for word in words: addWord(word)
-        result = set()
-
-        def dfs(xy, node, word='', visited=None):
-            if not visited: visited = set()
-            x,y = xy
-            c = board[x][y]
-            if not c in node: return
-            node = node[c]
-            
-            word = f'{word}{c}'
-            visited.add(xy)
-            if EOL in node:
-                result.add(word)
-
-            near = []
-            if x-1 >= 0:            near.append((x-1,y))
-            if x+1 < len(board):    near.append((x+1,y))
-            if y-1 >= 0:            near.append((x, y-1))
-            if y+1 < len(board[0]): near.append((x, y+1))
-            next_xy = [xy for xy in near if xy not in visited]
-    
-            for ne_xy in next_xy:
-                dfs(ne_xy, node, word, visited)
-    
-            visited.remove(xy)
-
-        for x in range(len(board)):
-            for y in range(len(board[0])):
-                dfs((x,y), root)
-        
-        return [w for w in result]
-
-
     def findWords1(self, board: List[List[str]], words: List[str]) -> List[str]:
         letters = {}
         for i in range(len(board)):
@@ -80,7 +34,7 @@ class Solution:
         return [w for w in words if isinboard(w)] 
 
 
-    def findWords2(self, board: List[List[str]], words: List[str]) -> List[str]:
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         root = {}
         EOL = '\0'
         
@@ -89,17 +43,28 @@ class Solution:
             for c in word:
                 if not c in node: node[c] = {}
                 node = node[c]
-            node[EOL] = None
+            if not EOL in node: node[EOL] = 0
+            node[EOL] += 1
 
         def pruneWord(word) -> None:
             node = root
-            toPrune=[]
-            # TODO prune word from 
+            nodes, chars, N = [], [], len(word)
+            for c in word:
+                nodes.append(node)
+                chars.append(c)
+                node = node[c]
+            node[EOL] -= 1
+            if node[EOL] == 0:
+                node.pop(EOL)         
+            for i in range(N):
+                node, c = nodes[N-i-1], chars[N-i-1]
+                if not node[c]:
+                    node.pop(c)
 
         for word in words: addWord(word)
         result, visited = set(), set()
         ROWS, COLS = len(board), len(board[0])
-
+        
         def dfs(x, y, node, word=''):
             if x < 0 or x >= ROWS or y < 0 or y >= COLS\
             or (x,y) in visited or not board[x][y] in node: return
@@ -111,7 +76,6 @@ class Solution:
 
             if EOL in node:
                 result.add(word)
-                node.pop(EOL)
                 pruneWord(word)
 
             dfs(x-1, y, node, word)
@@ -128,7 +92,7 @@ class Solution:
         return list(result)
 
 
-###############################################################################
+"""
  def addWord(self, word):
         cur = self
         for c in word:
@@ -150,7 +114,7 @@ class Solution:
                 del parentNode.children[childKey]
             else:
                 return
-######################################################################
+"""
 
 import unittest
 import collections
@@ -192,16 +156,6 @@ class SolutionTests(unittest.TestCase):
                 sut = Solution()
                 # act
                 result = sut.findWords1(board, words)
-                # assert
-                self.assertEqual(sorted(expected), sorted(result), (board, words))
-
-    def testCases_findWords2(self):
-        for board, words, expected in self.param_list:
-            with self.subTest():
-                # arrange
-                sut = Solution()
-                # act
-                result = sut.findWords2(board, words)
                 # assert
                 self.assertEqual(sorted(expected), sorted(result), (board, words))
 
