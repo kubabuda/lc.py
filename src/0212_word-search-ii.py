@@ -54,14 +54,14 @@ class Solution:
                 chars.append(c)
                 node = node[c]
             node[EOL] -= 1
-            if node[EOL] == 0:
+            if not node[EOL]:
                 node.pop(EOL)         
             for i in range(N):
                 node, c = nodes[N-i-1], chars[N-i-1]
                 if not node[c]:
                     node.pop(c)
 
-        for word in words: addWord(word)
+        for word in set(words): addWord(word)
         result, visited = set(), set()
         ROWS, COLS = len(board), len(board[0])
         

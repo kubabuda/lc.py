@@ -13,7 +13,7 @@ class Solution:
             rev = word[::-1]
             if word == rev:
                 if wc >= 2:
-                    result += 2 * (wc - wc % 2)
+                    result += 4 * (wc // 2)
                 if not midpt and wc % 2:
                     midpt = True
                     result += 2
