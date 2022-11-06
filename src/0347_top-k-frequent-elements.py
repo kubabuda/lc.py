@@ -25,9 +25,8 @@ class Solution:
 
         for ns in freq[::-1]:
             for n in ns:
-                if len(result) >= k: return list(result)
                 result.add(n)
-        return list(result) # if len(nums) == k
+                if len(result) >= k: return list(result)
 
 import unittest
 

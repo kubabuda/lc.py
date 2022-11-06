@@ -8,17 +8,8 @@ class Solution:
 
 
 import unittest
-
+null = None
 class SolutionTests(unittest.TestCase): 
-    
-    def test(self):
-        # arrange
-        s = Solution()
-        # act
-        result = 2
-        # assert
-        self.assertEqual(2, result)
-    
     param_list = lambda _:[
         ([], []),
     ]
@@ -32,6 +23,9 @@ class SolutionTests(unittest.TestCase):
                 result = s.method(nums)
                 # assert
                 self.assertEqual(expected, result, (nums))
+
+    # def test(self):
+    #     self.assertEqual(2, -1)
 
 if __name__ == '__main__':
     unittest.main()
