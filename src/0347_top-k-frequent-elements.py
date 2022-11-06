@@ -17,16 +17,10 @@ class Solution:
 
     def topKFrequentB(self, nums: List[int], k: int) -> List[int]:
         "bucket sort: O(n) space, O(n) time"
-        cnt, result = {}, set()
+        cnt, result = Counter(nums), set()
         freq = [set() for i in range(len(nums) + 1)]
 
-        for n in nums:
-            if n not in cnt: 
-                cnt[n] = 0
-                freq[0].add(n)
-
-            freq[cnt[n]].remove(n)
-            cnt[n] += 1
+        for n in cnt:
             freq[cnt[n]].add(n)
 
         for ns in freq[::-1]:
