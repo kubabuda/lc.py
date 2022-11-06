@@ -11,8 +11,7 @@ class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         """one big min heap approach
         O(n*k*log (k*n))time, O(k*n) space"""
-        result = None
-        r_tail = None
+        result = prev = ListNode()
         
         minheap = []
         for node in lists:
@@ -21,14 +20,10 @@ class Solution:
                 node = node.next
                 
         while minheap:
-            val, _obj_id, to_add = heapq.heappop(minheap)
-            if not result:
-                result = to_add
-                r_tail = result
-            else:
-                r_tail.next = to_add
-                r_tail = r_tail.next
-        return result
+            _,_, prev.next = heapq.heappop(minheap)
+            prev = prev.next
+
+        return result.next
 
     def mergeKLists2(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         """bruteforce approach
