@@ -9,12 +9,31 @@ class Solution:
         cnt = [(ct, val) for val, ct in Counter(nums).items()]
         return [val for ct, val in sorted(cnt)[::-1][:k]]
 
-
     def topKFrequent2(self, nums: List[int], k: int) -> List[int]:
         "Minheap: O(n) space, O(n log n) time - equivalent to hashmap solution"
         cnt = [(ct, val) for val, ct in Counter(nums).items()]
         klargest = heapq.nlargest(k, cnt)
         return [val for ct, val in klargest]
+
+    def topKFrequentB(self, nums: List[int], k: int) -> List[int]:
+        "bucket sort: O(n) space, O(n) time"
+        cnt, result = {}, set()
+        freq = [set() for i in range(len(nums) + 1)]
+
+        for n in nums:
+            if n not in cnt: 
+                cnt[n] = 0
+                freq[0].add(n)
+
+            freq[cnt[n]].remove(n)
+            cnt[n] += 1
+            freq[cnt[n]].add(n)
+
+        for ns in freq[::-1]:
+            for n in ns:
+                if len(result) >= k: return list(result)
+                result.add(n)
+        return list(result) # if len(nums) == k
 
 import unittest
 
@@ -41,6 +60,17 @@ class SolutionTests(unittest.TestCase):
                 s = Solution()
                 # act
                 result = s.topKFrequent2(nums, k)
+                # assert
+                self.assertEqual(sorted(expected), sorted(result), (nums))
+
+
+    def testCases_topKFrequentB(self):
+        for nums, k, expected in self.param_list():
+            with self.subTest():
+                # arrange
+                s = Solution()
+                # act
+                result = s.topKFrequentB(nums, k)
                 # assert
                 self.assertEqual(sorted(expected), sorted(result), (nums))
 
