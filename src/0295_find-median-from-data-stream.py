@@ -6,31 +6,28 @@ import heapq
 class MedianFinder:
 
     def __init__(self):
-        self.minheap = []
-        self.maxheap = []
+        self.larger = []
+        self.lower = []
         
     def _is_even(self):
-        return (len(self.minheap) + len(self.maxheap)) % 2 == 0
+        return (len(self.larger) + len(self.lower)) % 2 == 0
 
     def addNum(self, num: int) -> None:
-        if not self.minheap or num > self.minheap[0]:
-            heapq.heappush(self.minheap, num)
-            while len(self.minheap) > len(self.maxheap) + 1:
-                heapq.heappush(self.maxheap, -heapq.heappop(self.minheap))
+        if not self.larger or num > self.larger[0]:
+            heapq.heappush(self.larger, num)
         else:
-            heapq.heappush(self.maxheap, -num)
-            while len(self.maxheap) > len(self.minheap) + 1:
-                heapq.heappush(self.minheap, -heapq.heappop(self.maxheap))
+            heapq.heappush(self.lower, -num)
+        if len(self.larger) > len(self.lower) + 1:
+            heapq.heappush(self.lower, -heapq.heappop(self.larger))
+        if len(self.lower) > len(self.larger) + 1:
+            heapq.heappush(self.larger, -heapq.heappop(self.lower))
 
     def findMedian(self) -> float:
-        if self._is_even():
-            result = (self.minheap[0] - self.maxheap[0]) / 2
-        else:
-            if len(self.minheap) > len(self.maxheap):
-                result = self.minheap[0]
-            else:
-                result = -self.maxheap[0]
-        return result
+        if len(self.larger) > len(self.lower):
+            return self.larger[0]
+        elif len(self.larger) == len(self.lower):
+            return (self.larger[0] - self.lower[0]) / 2
+        return -self.lower[0]
 
 
 import unittest
