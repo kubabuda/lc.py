@@ -8,15 +8,13 @@ class MedianFinder:
     def __init__(self):
         self.larger = []
         self.lower = []
-        
-    def _is_even(self):
-        return (len(self.larger) + len(self.lower)) % 2 == 0
 
     def addNum(self, num: int) -> None:
         if not self.larger or num > self.larger[0]:
             heapq.heappush(self.larger, num)
         else:
             heapq.heappush(self.lower, -num)
+        
         if len(self.larger) > len(self.lower) + 1:
             heapq.heappush(self.lower, -heapq.heappop(self.larger))
         if len(self.lower) > len(self.larger) + 1:
