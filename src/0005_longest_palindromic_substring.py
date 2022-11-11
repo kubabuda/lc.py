@@ -61,6 +61,9 @@ class Solution:
         else:
             return st[ie - maxRe + 1 : ie + maxRe + 1]
 
+    def longestPalindromeDP(self, s: str) -> str:
+        N = len(s)
+        if N < 2: return self
 
 
 import unittest
@@ -97,6 +100,18 @@ class SolutionTests(unittest.TestCase):
                 # assert
                 self.assertEqual(len(result), len(expected), f'{s}: {result} != {expected}')
                 self.assertTrue(result in s, f'{s}: {result} not in {s}')
+
+    def testCases_longestPalindromeDP(self):
+        for s, expected in self.param_list():
+            with self.subTest():
+                # arrange
+                sol = Solution()
+                # act
+                result = sol.longestPalindromeDP(s)
+                # assert
+                self.assertEqual(len(result), len(expected), f'{s}: {result} != {expected}')
+                self.assertTrue(result in s, f'{s}: {result} not in {expected}')
+
 
 if __name__ == '__main__':
     unittest.main()
