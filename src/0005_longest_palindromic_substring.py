@@ -6,24 +6,18 @@ class Solution:
     def longestPalindrome(self, s: str) -> str:
         "O(n**2) time O(1) space"
         N = len(s)
-        maxL, maxR, maxLen = 0, 0, 0
+        maxL, maxR, maxLen = 0, 1, 0
+        offsets = (0,1)
         for i in range(N):
-            l = r = i
-            while l >= 0 and r < N and s[l] == s[r]:
-                if r - l > maxLen:
-                    maxL, maxR = l, r
-                    maxLen = r - l
-                l -= 1
-                r += 1
-            l = i
-            r = l + 1
-            while l >= 0 and r < N and s[l] == s[r]:
-                if r - l > maxLen:
-                    maxL, maxR = l, r
-                    maxLen = r - l
-                l -= 1
-                r += 1
-        return s[maxL:maxR+1]
+            for offset in offsets:
+                l, r = i, i + offset
+                while l >= 0 and r < N and s[l] == s[r]:
+                    if r - l > maxLen:
+                        maxL, maxR = l, r+1
+                        maxLen = r - l
+                    l -= 1
+                    r += 1
+        return s[maxL:maxR]
 
     def longestPalindromeManacher(self, s: str) -> str:
         "O(n) time O(n) space"

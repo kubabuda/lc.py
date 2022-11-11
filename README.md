@@ -233,6 +233,8 @@ https://www.youtube.com/watch?v=NtMvNh0WFVM
 
 ### [Jordan has no life](https://www.youtube.com/channel/UCbvDQKzAJ5GwCjTrv4FWkxg/videos)
 
+### [codeKarle](https://www.youtube.com/c/codeKarle)
+
 algoexpert
 
 ## Distributed systems
