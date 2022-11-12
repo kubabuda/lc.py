@@ -5,7 +5,7 @@ from typing import *
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
         lha, lne = len(haystack), len(needle)
-        for i in range(0, lha-lne+1):
+        for i in range(lha):
             k = 0
             print(haystack, needle, i, k)
             while i+k < lha and k < lne and haystack[i+k] == needle[k]:
