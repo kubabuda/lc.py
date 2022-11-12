@@ -24,8 +24,6 @@ class SolutionTests(unittest.TestCase):
                 # assert
                 self.assertEqual(expected, result, (nums))
 
-    # def test(self):
-    #     self.assertEqual(2, -1)
 
 if __name__ == '__main__':
     unittest.main()
