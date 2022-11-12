@@ -4,12 +4,15 @@ from typing import *
 
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        """O((m+n) log(m+n)) time but no TLE"""
+        """O((m+n) log(m+n)) time but no TLE, O(m+n) space"""
         nums = sorted(nums1 + nums2)
         mid = len(nums) // 2
         if not len(nums) % 2:
             return (nums[mid] + nums[mid-1]) / 2
         return nums[mid]
+
+    def findMedianSortedArraysOptimal(self, nums1: List[int], nums2: List[int]) -> float:
+        """O(log(m+n)) time O(1) space"""
 
 
 import unittest
