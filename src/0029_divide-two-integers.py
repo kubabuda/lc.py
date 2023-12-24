@@ -6,7 +6,6 @@ class Solution:
     def divide(self, dividend: int, divisor: int) -> int:
         """O(log(n)) time O(1) space"""
         absdividend, absdivisor = abs(dividend), abs(divisor)
-        if absdivisor > absdividend: return 0
         is_positive = (dividend > 0 and divisor > 0) or (dividend < 0 and divisor < 0)
         quotient, mul = 0, 1
         
