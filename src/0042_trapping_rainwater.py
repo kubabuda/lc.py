@@ -3,8 +3,30 @@ from typing import *
 # https://leetcode.com/problems/trapping-rain-water
 
 class Solution:
-    """Stack + two pointers. O(n log n) time, O(n) space"""
+    """Two lists: O(n) time, O(n) space"""
     def trap(self, height: List[int]) -> int:
+        left = [0 for i in range(len(height))]
+        left[0] = height[0]
+        for i in range(1, len(height)):
+            left[i] = max(height[i], left[i-1])
+        
+        right = [0 for i in left]
+        right[-1] = height[-1]
+        for i in range(len(height) - 2, -1, -1):
+            right[i] = max(height[i], right[i+1])
+        
+        result = 0
+        print(left)
+        print(height)
+        print(right)
+        for i in range(len(height)):
+            result += max(0, min(right[i], left[i])- height[i])
+
+        return result
+
+
+    """Stack + two pointers. O(n log n) time, O(n) space"""
+    def trap_sort(self, height: List[int]) -> int:
         if len(height) < 3:
             return 0
 
@@ -37,7 +59,7 @@ import unittest
 class SolutionTests(unittest.TestCase): 
     
     param_list = lambda _: [
-        # ([0,1,0,2,1,0,1,3,2,1,2,1], 6),
+        ([0,1,0,2,1,0,1,3,2,1,2,1], 6),
         ([4,2,0,3,2,5], 9),
     ]
 
@@ -48,6 +70,16 @@ class SolutionTests(unittest.TestCase):
                 s = Solution()
                 # act
                 result = s.trap(word)
+                # assert
+                self.assertEqual(expected, result, (word))
+    
+    def testCases_trap_sort(self):
+        for word, expected in self.param_list():
+            with self.subTest():
+                # arrange
+                s = Solution()
+                # act
+                result = s.trap_sort(word)
                 # assert
                 self.assertEqual(expected, result, (word))
 
