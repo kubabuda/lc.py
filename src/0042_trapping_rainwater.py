@@ -67,6 +67,24 @@ class Solution:
 
         return trappedWater
 
+    """Bruteforce: O(n**2) time, O(1) space"""
+    def trap_bf(self, height: List[int]) -> int:
+        l = len(height)
+        result = 0
+
+        for i, h in enumerate(height):
+            leftMax, j = h, i
+            j = i
+            while j >= 0:
+                leftMax = max(leftMax, height[j])
+                j -= 1
+            rightMax, j = h, i
+            while j < l:
+                rightMax = max(rightMax, height[j])
+                j += 1
+            result += max(0, min(leftMax, rightMax) - h)
+        return result
+
 
 import unittest
 
@@ -111,6 +129,16 @@ class SolutionTests(unittest.TestCase):
                 s = Solution()
                 # act
                 result = s.trap_sort(word)
+                # assert
+                self.assertEqual(expected, result, (word))
+    
+    def testCases_trap_bf(self):
+        for word, expected in self.param_list():
+            with self.subTest():
+                # arrange
+                s = Solution()
+                # act
+                result = s.trap_bf(word)
                 # assert
                 self.assertEqual(expected, result, (word))
 
