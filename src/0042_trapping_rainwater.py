@@ -11,12 +11,12 @@ class Solution:
 
         while right >= left:
             if leftMax < rightMax:
+                result += max(0, leftMax - height[left])
                 leftMax = max(leftMax, height[left])
-                result += max(0, min(leftMax, rightMax) - height[left])
                 left += 1
             else:
+                result += max(0, rightMax - height[right])
                 rightMax = max(rightMax, height[right])
-                result += max(0, min(leftMax, rightMax) - height[right])
                 right -= 1
         return result
 
