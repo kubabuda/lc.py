@@ -20,6 +20,21 @@ class Solution:
             
         return result
 
+    '''sort + two pointers: O(N) space O(N log N) time'''
+    def findContentChildren_2P(self, g: List[int], s: List[int]) -> int:
+        cookies = sorted(s)
+        kids = sorted(g)
+        result = 0
+        i, j = 0,0
+        
+        while i < len(cookies) and j < len(kids):
+            if cookies[i] >= kids[j]:
+                j += 1
+                result += 1
+            i += 1
+            
+        return result
+
 
 import unittest
 null = None
@@ -41,6 +56,15 @@ class SolutionTests(unittest.TestCase):
                 # assertg
                 self.assertEqual(expected, result, (g, s))
 
+    def testCases_findContentChildren_2P(self):
+        for g, s, expected in self.param_list():
+            with self.subTest():
+                # arrange
+                sol = Solution()
+                # act
+                result = sol.findContentChildren_2P(g, s)
+                # assertg
+                self.assertEqual(expected, result, (g, s))
 
 if __name__ == '__main__':
     unittest.main()
