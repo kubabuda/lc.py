@@ -15,7 +15,7 @@ class Solution:
             if j >= numRows:
                 j = p - j
             lines[j].append(c)
-        return ''.join([''.join(l) for l in lines])
+        return ''.join(''.join(l) for l in lines)
     
 
 import unittest
