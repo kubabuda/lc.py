@@ -3,7 +3,7 @@ from typing import *
 # https://leetcode.com/problems/longest-increasing-subsequence
 
 class Solution:
-    # bruteforce DFS
+    # DFS with cache - top-down DP
     def lengthOfLIS(self, nums: List[int]) -> int:
         cache = {}
 
@@ -19,6 +19,15 @@ class Solution:
 
         return max(dfs(i) for i in range(0, len(nums)))
 
+    # bottom-up DP
+    def lengthOfLIS_DP(self, nums: List[int]) -> int:
+        lis = [1 for i in range(len(nums))]
+        for i in range(len(nums) - 2, -1, -1):
+            gt = [lis[j] for j in range(i + 1, len(nums)) if nums[j] > nums[i]]
+            print(i, gt, lis)
+            if gt:
+                lis[i] += max(gt)
+        return max(lis)
 
 import unittest
 null = None
@@ -36,6 +45,16 @@ class SolutionTests(unittest.TestCase):
                 s = Solution()
                 # act
                 result = s.lengthOfLIS(nums)
+                # assert
+                self.assertEqual(expected, result, (nums))
+
+    def testCases_lengthOfLIS_DP(self):
+        for nums, expected in self.param_list():
+            with self.subTest():
+                # arrange
+                s = Solution()
+                # act
+                result = s.lengthOfLIS_DP(nums)
                 # assert
                 self.assertEqual(expected, result, (nums))
 
