@@ -16,6 +16,26 @@ class Solution:
                     PR[i] = max(PR[i], PR[j] + jobs[i][2])
         return max(PR)
 
+    # DFS: O(N**2) time, O(N) memory. TLE
+    def jobScheduling_DFS(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
+        N = len(startTime)
+        jobs = [(startTime[i], endTime[i], profit[i]) for i in range(N)]
+        jobs.sort(key=lambda x: x[0])
+        
+        cache = {}
+        
+        def dfs(i: int) -> int:
+            job = jobs[i]
+            p = job[2]
+            for j in range(i + 1, N):
+                nextJob = jobs[j]
+                if nextJob[0] >= job[1]:
+                    pj = cache[j] if j in cache else dfs(j)
+                    p = max(p, job[2] + pj)
+            cache[i] = p
+            return p
+
+        return max(dfs(j) for j in range(N))
     
     
 import unittest
@@ -37,6 +57,15 @@ class SolutionTests(unittest.TestCase):
                 # assert
                 self.assertEqual(expected, result, (start, end, profit))
 
+    def testCases_jobScheduling_DFS(self):
+        for start, end, profit, expected in self.param_list():
+            with self.subTest():
+                # arrange
+                s = Solution()
+                # act
+                result = s.jobScheduling_DFS(start, end, profit)
+                # assert
+                self.assertEqual(expected, result, (start, end, profit))
 
 if __name__ == '__main__':
     unittest.main()
