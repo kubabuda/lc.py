@@ -3,18 +3,17 @@ from typing import *
 # https://leetcode.com/problems/longest-increasing-subsequence
 
 class Solution:
-    # DFS with cache - top-down DP: O(N**2) time, O(N) space
+    # DFS with cache - top-down DP
     def lengthOfLIS(self, nums: List[int]) -> int:
         cache = {}
 
         def dfs(i: int) -> int:
-            gt = None
-            for j in range(i + 1, len(nums)):
-                if nums[j] > nums[i]:
-                    gt = cache[j] if j in cache else dfs(j)
+            gte = [cache[j] if j in cache else dfs(j)
+                for j in range(i+1, len(nums)) 
+                if nums[j] > nums[i]]
             result = 1
-            if gt:
-                result += gt
+            if gte:
+                result += max(gte)
             cache[i] = result
             return result
 

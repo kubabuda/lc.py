@@ -6,8 +6,7 @@ class Solution:
     # bottom-up DP: O(N**2) time, O(N) memory. TLE
     def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
         N = len(startTime)
-        jobs = [(startTime[i], endTime[i], profit[i]) for i in range(N)]
-        jobs.sort(key=lambda x: x[0])
+        jobs = sorted(zip(startTime, endTime, profit))
         
         PR = [j[2] for j in jobs]
         for i in range(N - 2, -1, -1):
